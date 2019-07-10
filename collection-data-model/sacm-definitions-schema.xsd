@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:sacm="http://sacm.cisecurity.org/XMLSchema/sacm-common-6"
+            xmlns:sacm-def="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6"
+            xmlns:sacm-coll="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6"
+            xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+            xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+            targetNamespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6"
+            elementFormDefault="qualified" version="6.0.0">
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-common-6" schemaLocation="sacm-common-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6" schemaLocation="sacm-collections-schema.xsd"/>
+    <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+    <xsd:annotation>
+        <xsd:documentation>The following is a description of the elements, types, and attributes that compose the core schema for encoding Open Vulnerability and Assessment Language (OVAL) Definitions. Some of the objects defined here are extended and enhanced by individual component schemas, which are described in separate documents. Each of the elements, types, and attributes that make up the Core Definition Schema are described in detail and should provide the information necessary to understand what each represents. This document is intended for developers and assumes some familiarity with XML. A high level description of the interaction between these objects is not outlined here.</xsd:documentation>
+        <xsd:documentation>The OVAL Schema is maintained by OVAL Community. For more information, including how to get involved in the project and how to submit change requests, please visit the OVAL website at http://oval.cisecurity.org.</xsd:documentation>
+        <xsd:appinfo>
+            <schema>Core Definition</schema>
+            <version>6.0.0</version>
+            <date>07/10/2019 09:00:00 AM</date>
+            <terms_of_use>For the portion subject to the copyright in the United States: Copyright (c) 2016 United States Government. All rights reserved. Copyright (c) 2016, Center for Internet Security. All rights reserved. The contents of this file are subject to the terms of the OVAL License located at https://oval.cisecurity.org/terms. See the OVAL License for the specific language governing permissions and limitations for use of this schema. When distributing copies of the OVAL Schema, this license header must be included.</terms_of_use>
+            <sch:ns prefix="sacm" uri="http://sacm.cisecurity.org/XMLSchema/sacm-common-6"/>
+            <sch:ns prefix="sacm-def" uri="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6"/>
+            <sch:ns prefix="sacm-coll" uri="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6"/>
+            <sch:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+        </xsd:appinfo>
+    </xsd:annotation>
+    <!-- =============================================================================== -->
+    <!-- =============================================================================== -->
+    <!-- =============================================================================== -->
+    <xsd:element name="sacm_definitions">
+        <xsd:annotation>
+            <xsd:documentation>The sacm_definitions element is the root of a SACM Definition Document. Its purpose is to bind together the major sections of a document - generator, definitions, tests, objects, states, and variables - which are the children of the root element.</xsd:documentation>
+            <xsd:appinfo>
+                <sch:pattern id="oval-def_empty_def_doc">
+                    <sch:rule context="sacm-def:sacm_definitions">
+                        <sch:assert test="sacm-def:definitions or sacm-def:tests or sacm-coll:collections or sacm-def:states or sacm:variables">A valid SACM Definition document must contain at least one definitions, tests, collections, states, or variables element. The optional definitions, tests, objects, states, and variables sections define the specific characteristics that should be evaluated on a system to determine the truth values of the OVAL Definition Document. To be valid though, at least one definitions, tests, objects, states, or variables element must be present.</sch:assert>
+                    </sch:rule>
+                </sch:pattern>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="generator" type="sacm:GeneratorType">
+                    <xsd:annotation>
+                        <xsd:documentation>The required generator section provides information about when the definition file was compiled and under what version.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="definitions" type="sacm-def:DefinitionsType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                        <xsd:documentation>The optional definitions section contains 1 or more definitions.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="tests" type="sacm-def:TestsType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                        <xsd:documentation>The optional tests section contains 1 or more tests.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="collections" type="sacm-coll:CollectionsType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                        <xsd:documentation>The optional collections section contains 1 or more collections.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="states" type="sacm-def:StatesType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                        <xsd:documentation>The optional states section contains 1 or more states.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="variables" type="sacm:VariablesType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                        <xsd:documentation>The optional variables section contains 1 or more variables.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element ref="ds:Signature" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                        <xsd:documentation>The optional Signature element allows an XML Signature as defined by the W3C to be attached to the document. This allows authentication and data integrity to be provided to the user. Enveloped signatures are supported. More information about the official W3C Recommendation regarding XML digital signatures can be found at http://www.w3.org/TR/xmldsig-core/.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:key name="definitionKey">
+            <xsd:annotation>
+                <xsd:documentation>Enforce uniqueness amongst the ids differentiating the individual definition elements.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath="sacm-def:definitions/sacm-def:definition"/>
+            <xsd:field xpath="@id"/>
+        </xsd:key>
+        <xsd:key name="testKey">
+            <xsd:annotation>
+                <xsd:documentation>Enforce uniqueness amongst the ids differentiating the individual test elements.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath="sacm-def:tests/*"/>
+            <xsd:field xpath="@id"/>
+        </xsd:key>
+        <xsd:key name="collectionKey">
+            <xsd:annotation>
+                <xsd:documentation>Enforce uniqueness amongst the ids differentiating the individual object elements.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath="sacm-coll:collections/*"/>
+            <xsd:field xpath="@id"/>
+        </xsd:key>
+        <xsd:key name="stateKey">
+            <xsd:annotation>
+                <xsd:documentation>Enforce uniqueness amongst the ids differentiating the individual state elements.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath="sacm-def:states/*"/>
+            <xsd:field xpath="@id"/>
+        </xsd:key>
+        <xsd:key name="variableKey">
+            <xsd:annotation>
+                <xsd:documentation>Enforce uniqueness amongst the ids differentiating the individual variable elements.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath="sacm:variables/*"/>
+            <xsd:field xpath="@id"/>
+        </xsd:key>
+        <xsd:keyref name="extendKeyRef" refer="sacm-def:definitionKey">
+            <xsd:annotation>
+                <xsd:documentation>Requires each definition reference to refer to a valid definition id.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath=".//*"/>
+            <xsd:field xpath="@definition_ref"/>
+        </xsd:keyref>
+        <xsd:keyref name="testKeyRef" refer="sacm-def:testKey">
+            <xsd:annotation>
+                <xsd:documentation>Requires each test reference to refer to a valid test id.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath=".//*"/>
+            <xsd:field xpath="@test_ref"/>
+        </xsd:keyref>
+        <xsd:keyref name="collectionKeyRef" refer="sacm-def:collectionKey">
+            <xsd:annotation>
+                <xsd:documentation>Requires each collection reference to refer to a valid collection id.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath=".//*"/>
+            <xsd:field xpath="@collection_ref"/>
+        </xsd:keyref>
+        <xsd:keyref name="stateKeyRef" refer="sacm-def:stateKey">
+            <xsd:annotation>
+                <xsd:documentation>Requires each state reference to refer to a valid state id.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath=".//*"/>
+            <xsd:field xpath="@state_ref"/>
+        </xsd:keyref>
+        <xsd:keyref name="variableKeyRef" refer="sacm-def:variableKey">
+            <xsd:annotation>
+                <xsd:documentation>Requires each variable reference to refer to a valid variable id.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath=".//*"/>
+            <xsd:field xpath="@var_ref"/>
+        </xsd:keyref>
+        <xsd:keyref name="collection_referenceKeyRef" refer="sacm-def:collectionKey">
+            <xsd:annotation>
+                <xsd:documentation>Require each collection reference in a set element to refer to a valid collection id.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath=".//sacm-def:collection_reference"/>
+            <xsd:field xpath="."/>
+        </xsd:keyref>
+        <xsd:keyref name="filterKeyRef" refer="sacm-def:stateKey">
+            <xsd:annotation>
+                <xsd:documentation>Require each filter in a set element to refer to a valid filter id.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:selector xpath=".//sacm-coll:filter"/>
+            <xsd:field xpath="."/>
+        </xsd:keyref>
+    </xsd:element>
+    <xsd:element name="notes" substitutionGroup="sacm:notes">
+        <xsd:annotation>
+            <xsd:documentation>The notes element is a container for one or more note child elements. It exists for backwards-compatibility purposes, for the pre-5.11.0 sacm-def:NotesType, which has been replaced by the sacm:notes element in 5.11.1.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="sacm:NotesType">
+                    <xsd:sequence>
+                        <xsd:element name="note" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    <!-- =============================================================================== -->
+    <!-- =================================  GENERATOR  ================================= -->
+    <!-- =============================================================================== -->
+    <!--
+		The GeneratorType is defined by the oval common schema.  Please refer to
+		that documentation for a description of the complex type.
+	 -->
+    <!-- =============================================================================== -->
+    <!-- ================================  DEFINITIONS  ================================ -->
+    <!-- =============================================================================== -->
+    <xsd:complexType name="DefinitionsType">
+        <xsd:annotation>
+            <xsd:documentation>The DefinitionsType complex type is a container for one or more definition elements. Each definition element describes a single OVAL Definition. Please refer to the description of the DefinitionType for more information about an individual definition.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="sacm-def:definition" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="definition" type="sacm-def:DefinitionType">
+        <xsd:annotation>
+            <xsd:documentation>The definition element represents the globally defined element of type DefinitionType. For more information please see the documentation on the DefinitionType.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="DefinitionType">
+        <xsd:annotation>
+            <xsd:documentation>The DefinitionType defines a single OVAL Definition. A definition is the key structure in OVAL. It is analogous to the logical sentence or proposition: if a computer's state matches the configuration parameters laid out in the criteria, then that computer exhibits the state described. The DefinitionType contains a section for various metadata related elements that describe the definition. This includes a description, version, affected system types, and reference information. The notes section of a definition should be used to hold information that might be helpful to someone examining the technical aspects of the definition. For example, why certain tests have been included in the criteria, or maybe a link to where further information can be found. The DefinitionType also (unless the definition is deprecated) contains a criteria child element that joins individual tests together with a logical operator to specify the specific computer state being described.</xsd:documentation>
+            <xsd:documentation>The required id attribute is the OVAL-ID of the Definition. The form of an OVAL-ID must follow the specific format described by the sacm:DefinitionIDPattern. The required version attribute holds the current version of the definition. Versions are integers, starting at 1 and incrementing every time a definition is modified. The required class attribute indicates the specific class to which the definition belongs. The class gives a hint to a user so they can know what the definition writer is trying to say. See the definition of sacm-def:ClassEnumeration for more information about the different valid classes. The optional deprecated attribute signifies that an id is no longer to be used or referenced but the information has been kept around for historic purposes.</xsd:documentation>
+            <xsd:documentation>When the deprecated attribute is set to true, the definition is considered to be deprecated. The criteria child element of a deprecated definition is optional. If a deprecated definition does not contain a criteria child element, the definition must evaluate to "not evaluated". If a deprecated definition contains a criteria child element, an interpreter should evaluate the definition as if it were not deprecated, but an interpreter may evaluate the definition to "not evaluated".</xsd:documentation>
+            <xsd:appinfo>
+                <sch:pattern id="oval-def_required_criteria">
+                    <sch:rule context="sacm-def:oval_definitions/sacm-def:definitions/sacm-def:definition[(@deprecated='false' or @deprecated='0') or not(@deprecated)]">
+                        <sch:assert test="sacm-def:criteria">A valid OVAL Definition must contain a criteria unless the definition is a deprecated definition.</sch:assert>
+                    </sch:rule>
+                </sch:pattern>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="ds:Signature" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="metadata" type="sacm-def:MetadataType">
+                <xsd:unique name="UniqueAffectedFamily">
+                    <xsd:annotation>
+                        <xsd:documentation>Each affected element must have a unique family attribute value.</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:selector xpath="sacm-def:affected"/>
+                    <xsd:field xpath="@family"/>
+                </xsd:unique>            
+            </xsd:element>
+            <xsd:element ref="sacm:notes" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="criteria" type="sacm-def:CriteriaType" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="sacm:DefinitionIDPattern" use="required"/>
+        <xsd:attribute name="version" type="xsd:nonNegativeInteger" use="required"/>
+        <xsd:attribute name="class" type="sacm:ClassEnumeration" use="required"/>
+        <xsd:attribute name="deprecated" type="xsd:boolean" use="optional" default="false"/>
+    </xsd:complexType>
+    <xsd:complexType name="MetadataType">
+        <xsd:annotation>
+            <xsd:documentation>The MetadataType complex type contains all the metadata available to an OVAL Definition. This metadata is for informational purposes only and is not part of the criteria used to evaluate machine state. The required title child element holds a short string that is used to quickly identify the definition to a human user. The affected metadata item contains information about the system(s) for which the definition has been written. Remember that this is just metadata and not part of the criteria. Please refer to the AffectedType description for more information. The required description element contains a textual description of the configuration state being addressed by the OVAL Definition. In the case of a definition from the vulnerability class, the reference is usually the Common Vulnerability and Exposures (CVE) Identifier, and this description field corresponds with the CVE description.</xsd:documentation>
+            <xsd:documentation>Additional metadata is also allowed although it is not part of the official OVAL Schema. Individual organizations can place metadata items that they feel are important and these will be skipped during the validation. All OVAL really cares about is that the stated metadata items are there.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="title" type="xsd:string"/>
+            <xsd:element name="affected" type="sacm-def:AffectedType" minOccurs="0" maxOccurs="unbounded">
+                <xsd:unique name="UniqueAffectedPlatform">
+                    <xsd:annotation>
+                        <xsd:documentation>Each affected platform element must have a unique value.</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:selector xpath="sacm-def:platform"/>
+                    <xsd:field xpath="."/>
+                </xsd:unique>
+                <xsd:unique name="UniqueAffectedProduct">
+                    <xsd:annotation>
+                        <xsd:documentation>Each affected product element must have a unique value.</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:selector xpath="sacm-def:product"/>
+                    <xsd:field xpath="."/>
+                </xsd:unique>
+            </xsd:element>
+            <xsd:element name="reference" type="sacm-def:ReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="description" type="xsd:string"/>
+            <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+            <!-- For the next major release of OVAL, the xsd:any tag above will be modified to
+		         only allow elements from namespaces other than the default namespace.  This
+		         fixes a bug in the current schema where the affected or reference element can
+		         appear after the description element and still produce a vailid document.
+
+		        <xsd:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax"/>
+		    -->
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AffectedType">
+        <xsd:annotation>
+            <xsd:documentation>Each OVAL Definition is written to evaluate a certain type of system(s). The family, platform(s), and product(s) of this target are described by the AffectedType whose main purpose is to provide hints for tools using OVAL Definitions. For instance, to help a reporting tool only use Windows definitions, or to preselect only Red Hat definitions to be evaluated. Note, the inclusion of a particular platform or product does not mean the definition is physically checking for the existence of the platform or product. For the actual test to be performed, the correct test must still be included in the definition's criteria section.</xsd:documentation>
+            <xsd:documentation>The AffectedType complex type details the specific system, application, subsystem, library, etc. for which a definition has been written. If a definition is not tied to a specific product, then this element should not be included. The absence of the platform or product element can be thought of as definition applying to all platforms or products. The inclusion of a particular platform or product does not mean the definition is physically checking for the existence of the platform or product. For the actual test to be performed, the correct test must still be included in the definition's criteria section. To increase the utility of this element, care should be taken when assigning and using strings for product names. The schema places no restrictions on the values that can be assigned, potentially leading to many different representations of the same value. For example, 'Internet Explorer' and 'IE' might be used to refer to the same product. The current convention is to fully spell out all terms, and avoid the use of abbreviations at all costs.</xsd:documentation>
+            <xsd:documentation>Please note that the AffectedType will change in future versions of OVAL in order to support the Common Platform Enumeration (CPE).</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="platform" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="product" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="family" type="sacm:FamilyEnumeration" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="ReferenceType">
+        <xsd:annotation>
+            <xsd:documentation>The ReferenceType complex type links the OVAL Definition to a definitive external reference. For example, CVE Identifiers are used for referencing vulnerabilities. The intended purpose for this reference is to link the definition to a variety of other sources that address the same issue being specified by the OVAL Definition.</xsd:documentation>
+            <xsd:documentation>The required source attribute specifies where the reference is coming from. In other words, it identifies the reference repository being used. The required ref_id attribute is the external id of the reference. The optional ref_url attribute is the URL to the reference.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="source" type="xsd:string" use="required"/>
+        <xsd:attribute name="ref_id" type="xsd:string" use="required"/>
+        <xsd:attribute name="ref_url" type="xsd:anyURI" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="CriteriaType">
+        <xsd:annotation>
+            <xsd:documentation>The CriteriaType complex type describes a container for a set of sub criteria, criteria, criterion, or extend_definition elements allowing complex logical trees to be constructed. Each referenced test is represented by a criterion element. Please refer to the description of the CriterionType for more information about and individual criterion element. The optional extend_definition element allows existing definitions to be included in the criteria. Refer to the description of the ExtendDefinitionType for more information.</xsd:documentation>
+            <xsd:documentation>The required operator attribute provides the logical operator that binds the different statements inside a criteria together. The optional negate attribute signifies that the result of the criteria as a whole should be negated during analysis. For example, consider a criteria that evaluates to TRUE if certain software is installed. By negating this test, it now evaluates to TRUE if the software is NOT installed. The optional comment attribute provides a short description of the criteria.</xsd:documentation>
+            <xsd:documentation>The optional applicability_check attribute provides a Boolean flag that when true indicates that the criteria is being used to determine whether the OVAL Definition applies to a given system.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:choice minOccurs="1" maxOccurs="unbounded">
+            <xsd:element name="criteria" type="sacm-def:CriteriaType"/>
+            <xsd:element name="criterion" type="sacm-def:CriterionType"/>
+            <xsd:element name="extend_definition" type="sacm-def:ExtendDefinitionType"/>
+        </xsd:choice>
+        <xsd:attribute name="applicability_check" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="operator" type="sacm:OperatorEnumeration" use="optional" default="AND"/>
+        <xsd:attribute name="negate" type="xsd:boolean" use="optional" default="false"/>
+        <xsd:attribute name="comment" type="sacm:NonEmptyStringType" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="CriterionType">
+        <xsd:annotation>
+            <xsd:documentation>The CriterionType complex type identifies a specific test to be included in the definition's criteria.</xsd:documentation>
+            <xsd:documentation>The required test_ref attribute is the actual id of the test being referenced. The optional negate attribute signifies that the result of an individual test should be negated during analysis. For example, consider a test that evaluates to TRUE if a specific patch is installed. By negating this test, it now evaluates to TRUE if the patch is NOT installed. The optional comment attribute provides a short description of the specified test and should mirror the comment attribute of the actual test.</xsd:documentation>
+            <xsd:documentation>The optional applicability_check attribute provides a Boolean flag that when true indicates that the criterion is being used to determine whether the OVAL Definition applies to a given system.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="applicability_check" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="test_ref" type="sacm:TestIDPattern" use="required"/>
+        <xsd:attribute name="negate" type="xsd:boolean" use="optional" default="false"/>
+        <xsd:attribute name="comment" type="sacm:NonEmptyStringType" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="ExtendDefinitionType">
+        <xsd:annotation>
+            <xsd:documentation>The ExtendDefinitionType complex type allows existing definitions to be extended by another definition. This works by evaluating the extended definition and then using the result within the logical context of the extending definition.</xsd:documentation>
+            <xsd:documentation>The required definition_ref attribute is the actual id of the definition being extended. The optional negate attribute signifies that the result of an extended definition should be negated during analysis. For example, consider a definition that evaluates TRUE if certainsoftware is installed. By negating the definition, it now evaluates to TRUE if the software is NOT installed. The optional comment attribute provides a short description of the specified definition and should mirror the title metadata of the extended definition.</xsd:documentation>
+            <xsd:documentation>The optional applicability_check attribute provides a Boolean flag that when true indicates that the extend_definition is being used to determine whether the OVAL Definition applies to a given system.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="applicability_check" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="definition_ref" type="sacm:DefinitionIDPattern" use="required"/>
+        <xsd:attribute name="negate" type="xsd:boolean" use="optional" default="false"/>
+        <xsd:attribute name="comment" type="sacm:NonEmptyStringType" use="optional"/>
+    </xsd:complexType>
+    <!-- =============================================================================== -->
+    <!-- ===================================  TESTS  =================================== -->
+    <!-- =============================================================================== -->
+    <xsd:complexType name="TestsType">
+        <xsd:annotation>
+            <xsd:documentation>The TestsType complex type is a container for one or more test child elements. Each test element describes a single OVAL Test. Please refer to the description of the TestType for more information about an individual test.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="sacm-def:test" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="test" type="sacm-def:TestType" abstract="true">
+        <xsd:annotation>
+            <xsd:documentation>The test element is an abstract element that is meant to be extended (via substitution groups) by the individual tests found in the component schemas. An OVAL Test is used to compare an object(s) against a defined state. An actual test element is not valid. The use of this abstract class simplifies the OVAL schema by allowing individual tests to inherit the optional notes child element, and the id and comment attributes from the base TestType. Please refer to the description of the TestType complex type for more information.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="TestType">
+        <xsd:annotation>
+            <xsd:documentation>The base type of every test includes an optional notes element and several attributes. The notes section of a test should be used to hold information that might be helpful to someone examining the technical aspects of the test. For example, why certain values have been used by the test, or maybe a link to where further information can be found. Please refer to the description of the NotesType complex type for more information about the notes element. The required comment attribute provides a short description of the test. The optional deprecated attribute signifies that an id is no longer to be used or referenced but the information has been kept around for historic purposes.</xsd:documentation>
+            <xsd:documentation>The required id attribute uniquely identifies each test, and must conform to the format specified by the TestIdPattern simple type. The required version attribute holds the current version of the test. Versions are integers, starting at 1 and incrementing every time a test is modified.</xsd:documentation> 
+            <xsd:documentation>The optional check_existence attribute specifies how many items in the set defined by the OVAL Object must exist for the test to evaluate to true. The default value for this attribute is 'at_least_one_exists' indicating that by default the test may evaluate to true if at least one item defined by the OVAL Object exists on the system. For example, if a value of 'all_exist' is given, every item defined by the OVAL Object must exist on the system for the test to evaluate to true. If the OVAL Object uses a variable reference, then every value of that variable must exist. Note that a pattern match defines a unique set of matching items found on a system. So when check_existence = 'all_exist' and a regex matches anything on a system the test will evaluate to true (since all matching objects on the system were found on the system). When check_existence = 'all_exist' and a regex does not match anything on a system the test will evaluate to false.</xsd:documentation>
+            <xsd:documentation>The required check attribute specifies how many items in the set defined by the OVAL Object (ignoring items with a status of Does Not Exist) must satisfy the state requirements.  For example, should the test check that all matching files have a specified version or that at least one file has the specified version?  The valid check values are explained in the description of the CheckEnumeration simple type. Note that if the test does not contain any references to OVAL States, then the check attribute has no meaning and can be ignored during evaluation.</xsd:documentation>
+            <xsd:documentation>An OVAL Test evaluates to true if both the check_existence  and check attributes are satisfied during evaluation. The evaluation result for a test is determined by first evaluating the check_existence attribute. If the result of evaluating the check_existence attribute is true then the check attribute is evaluated. An interpreter may choose to always evaluate both the check_existence and the check attributes, but once the check_existence attribute evaluation has resulted in false the overall test result after evaluating the check attribute will not be affected.</xsd:documentation>
+            <xsd:documentation>The optional state_operator attribute provides the logical operator that combines the evaluation results from each referenced state on a per item basis.  Each matching item is compared to each referenced state. The result of comparing each state to a single item is combined based on the specified state_operator value to determine one result for each item. Finally, the results for each item are combined based on the specified check value.  Note that if the test does not contain any references to OVAL States, then the state_operator attribute has no meaning and can be ignored during evaluation. Referencing multiple states in one test allows ranges of possible values to be expressed. For example, one state can check that a value greater than 8 is found and another state can check that a value of less than 16 is found.  In this example the referenced states are combined with a state_operator = 'AND' indicating that the conditions of all referenced states must be satisfied and that the value must be between 8 AND 16.  The valid state_operation values are explained in the description of the OperatorEnumeration simple type.</xsd:documentation>
+            <xsd:appinfo>
+                <sch:pattern id="oval-def_test_type">
+                    <sch:rule context="sacm-def:oval_definitions/sacm-def:tests/*[@check_existence='none_exist']">
+                        <sch:assert test="not(*[local-name()='state'])"><sch:value-of select="@id"/> - No state should be referenced when check_existence has a value of 'none_exist'.</sch:assert>
+                    </sch:rule>
+                </sch:pattern>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="ds:Signature" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="sacm:notes" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="sacm:TestIDPattern" use="required"/>
+        <xsd:attribute name="version" type="xsd:nonNegativeInteger" use="required"/>
+        <xsd:attribute name="check_existence" type="sacm:ExistenceEnumeration" use="optional" default="at_least_one_exists"/>
+        <xsd:attribute name="check" type="sacm:CheckEnumeration" use="required"/>
+        <xsd:attribute name="state_operator" type="sacm:OperatorEnumeration" use="optional" default="AND"/>
+        <xsd:attribute name="comment" type="sacm:NonEmptyStringType" use="required"/>
+        <xsd:attribute name="deprecated" type="xsd:boolean" use="optional" default="false"/>        
+    </xsd:complexType>
+    <xsd:complexType name="CollectionRefType">
+        <xsd:annotation>
+            <xsd:documentation>
+                The CollectionRefType complex type defines a collection reference to be used by SACM Tests that are defined 
+                in the component schemas. The required collection_ref attribute specifies the id of the SACM Collection being 
+                referenced.  The option collection_href attribute allows collection components to be imported from a separate
+                SACM collections document.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="collection_ref" type="sacm:CollectionIDPattern" use="required"/>
+        <xsd:attribute name="collection_href" type="xsd:anyURI" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="StateRefType">
+        <xsd:annotation>
+            <xsd:documentation>The StateRefType complex type defines a state reference to be used by OVAL Tests that are defined in the component schemas. The required state_ref attribute specifies the id of the OVAL State being referenced.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="state_ref" type="sacm:StateIDPattern" use="required"/>
+    </xsd:complexType>
+    <!-- =============================================================================== -->
+    <!-- ==================================  STATES  =================================== -->
+    <!-- =============================================================================== -->
+    <xsd:complexType name="StatesType">
+        <xsd:annotation>
+            <xsd:documentation>The StatesType complex type is a container for one or more state child elements. Each state provides details about specific characteristics that can be used during an evaluation of an object. Please refer to the description of the state element for more information about an individual state.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="sacm-def:state" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="state" type="sacm-def:StateType" abstract="true">
+        <xsd:annotation>
+            <xsd:documentation>The state element is an abstract element that is meant to be extended (via substitution groups) by the states found in the component schemas. An actual state element is not valid. The use of this abstract class simplifies the OVAL schema by allowing individual states to inherit the optional notes child element, and the id and operator attributes from the base StateType. Please refer to the description of the StateType complex type for more information.</xsd:documentation>
+            <xsd:documentation>An OVAL State is a collection of one or more characteristics pertaining to a specific object type. The OVAL State is used by an OVAL Test to determine if a unique set of items identified on a system meet certain characteristics.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="StateType">
+        <xsd:annotation>
+            <xsd:documentation>The base type of every state includes an optional notes element and two attributes. The notes section of a state should be used to hold information that might be helpful to someone examining the technical aspects of the state. For example, why certain values have been used by the state, or maybe a link to where further information can be found. Please refer to the description of the NotesType complex type for more information about the notes element.</xsd:documentation>
+            <xsd:documentation>The required id attribute uniquely identifies each state, and must conform to the format specified by the StateIdPattern simple type. The required version attribute holds the current version of the state. Versions are integers, starting at 1 and incrementing every time a state is modified. The required operator attribute provides the logical operator that binds the different characteristics inside a state together. The optional comment attribute provides a short description of the state. The optional deprecated attribute signifies that an id is no longer to be used or referenced but the information has been kept around for historic purposes.</xsd:documentation>
+            <xsd:documentation>When evaluating a particular state against an object, one should evaluate each individual entity separately. The individual results are then combined by the operator to produce an overall result. This process holds true even when there are multiple instances of the same entity. Evaluate each instance separately, taking the entity check attribute into account, and then combine everything using the operator.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="ds:Signature" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="sacm:notes" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="sacm:StateIDPattern" use="required"/>
+        <xsd:attribute name="version" type="xsd:nonNegativeInteger" use="required"/>
+        <xsd:attribute name="operator" type="sacm:OperatorEnumeration" use="optional" default="AND"/>
+        <xsd:attribute name="comment" type="sacm:NonEmptyStringType" use="optional"/>
+        <xsd:attribute name="deprecated" type="xsd:boolean" use="optional" default="false"/>
+    </xsd:complexType>
+    <!-- =============================================================================== -->
+    <!-- =================================  SIGNATURE  ================================= -->
+    <!-- =============================================================================== -->
+    <!--
+		The signature element is defined by the xmldsig schema.  Please refer to that
+		documentation for a description of the valid elements and types.  More
+		information about the official W3C Recommendation regarding XML digital
+		signatures can be found at http://www.w3.org/TR/xmldsig-core/.
+	 -->
+    <!-- =============================================================================== -->
+    <!-- ===============================  ENTITY TYPES  ================================ -->
+    <!-- =============================================================================== -->
+    <xsd:complexType name="EntityStateSimpleBaseType" abstract="true">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateSimpleBaseType complex type is an abstract type that extends the EntitySimpleBaseType and is used by some entities within an OVAL State.</xsd:documentation>
+            <xsd:documentation>The optional check_existence attribute specifies how to interpret the status of corresponding item entities when performing an item-state comparison. The default value for this attribute is 'at_least_one_exists' indicating that by default an item comparison may evaluate to true only if at least one corresponding item entity has a status of 'exists'. For example, if a value of 'none_exist' is given, then the comparison can evaluate to true only if there are one or more corresponding item entities, each with a status of 'does not exist'.</xsd:documentation>
+            <xsd:documentation>The optional entity_check attribute specifies how to handle multiple item entities with the same name in the OVAL Systems Characteristics file. For example, suppose we are dealing with a Group Test and an entity in the state is related to the user.  It is very likely that when the information about the group is collected off of the system (and represented in the OVAL System Characteristics file) that there will be multiple users associated with the group (i.e. multiple 'user' item entities associated with the same 'user' state entity).  If the OVAL State defines the value of the user entity to equal 'Fred', then the entity_check attribute determines if all values for 'user' item entities must be equal to 'Fred', or at least one value must be equal to 'Fred', etc.  Note that with the exception of the 'none_satisfy' check value, the entity_check attribute can only affect the result of the test if the corresponding OVAL Item allows more than one occurrence of the entity (e.g. 'maxOccurs' is some value greater than one).</xsd:documentation>
+            <xsd:documentation>The entity_check and var_check attributes are considered together when evaluating a single state entity. When a variable identifies more than one value and multiple item entities with the same name exist, for a single state entity, a many-to-many comparison must be conducted.  In this situation, there are many values for the state entity that must be compared to many item entities.  Each item entity is compared to the state entity. For each item entity, an interim result is calculated by using the var_check attribute to combine the result of comparing each variable value with a single system value. Then these interim results are combined for each system value using the entity_check attribute.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="sacm:EntitySimpleBaseType">
+                <xsd:attribute name="entity_check" type="sacm:CheckEnumeration" use="optional" default="all"/>
+                <xsd:attribute name="check_existence" type="sacm:ExistenceEnumeration" use="optional" default="at_least_one_exists"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateComplexBaseType" abstract="true">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateComplexBaseType complex type is an abstract type that extends the EntityComplexBaseType and is used by some entities within an OVAL State.</xsd:documentation>
+            <xsd:documentation>The optional check_existence attribute specifies how to interpret the status of corresponding item entities when performing an item-state comparison. The default value for this attribute is 'at_least_one_exists' indicating that by default an item comparison may evaluate to true only if at least one corresponding item entity has a status of 'exists'. For example, if a value of 'none_exist' is given, then the comparison can evaluate to true only if there are one or more corresponding item entities, each with a status of 'does not exist'.</xsd:documentation>
+            <xsd:documentation>The optional entity_check attribute specifies how to handle multiple item entities with the same name in the OVAL Systems Characteristics file. For example, suppose we are dealing with a Group Test and an entity in the state is related to the user.  It is very likely that when the information about the group is collected off of the system (and represented in the OVAL System Characteristics file) that there will be multiple users associated with the group (i.e. multiple 'user' item entities associated with the same 'user' state entity).  If the OVAL State defines the value of the user entity to equal 'Fred', then the entity_check attribute determines if all values for 'user' item entities must be equal to 'Fred', or at least one value must be equal to 'Fred', etc.  Note that with the exception of the 'none_satisfy' check value, the entity_check attribute can only affect the result of the test if the corresponding OVAL Item allows more than one occurrence of the entity (e.g. 'maxOccurs' is some value greater than one).</xsd:documentation>
+            <xsd:documentation>The entity_check and var_check attributes are considered together when evaluating a single state entity. When a variable identifies more than one value and multiple item entities with the same name exist, for a single state entity, a many-to-many comparison must be conducted.  In this situation, there are many values for the state entity that must be compared to many item entities.  Each item entity is compared to the state entity. For each item entity, an interim result is calculated by using the var_check attribute to combine the result of comparing each variable value with a single system value. Then these interim results are combined for each system value using the entity_check attribute.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="sacm:EntityComplexBaseType">
+                <xsd:attribute name="entity_check" type="sacm:CheckEnumeration" use="optional" default="all"/>
+                <xsd:attribute name="check_existence" type="sacm:ExistenceEnumeration" use="optional" default="at_least_one_exists"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateIPAddressType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateIPAddressType type is extended by the entities of an individual OVAL State. This type provides uniformity to each object entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes any IPv4/IPv6 address or address prefix.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" use="required">
+                    <xsd:simpleType>
+                        <xsd:restriction base="sacm:SimpleDatatypeEnumeration">
+                            <xsd:enumeration value="ipv4_address"/>
+                            <xsd:enumeration value="ipv6_address"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateIPAddressStringType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateIPAddressStringType type is extended by the entities of an individual OVAL State. This type provides uniformity to each object entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes any IPv4/IPv6 address, address prefix, or its string representation.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" use="optional" default="string">
+                    <xsd:simpleType>
+                        <xsd:restriction base="sacm:SimpleDatatypeEnumeration">
+                            <xsd:enumeration value="ipv4_address"/>
+                            <xsd:enumeration value="ipv6_address"/>
+                            <xsd:enumeration value="string"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>                                
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateAnySimpleType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateAnySimpleType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes any simple data.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" type="sacm:SimpleDatatypeEnumeration" use="optional" default="string"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateBinaryType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateBinaryType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes simple binary data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:union memberTypes="xsd:hexBinary sacm:EmptyStringType"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" type="sacm:SimpleDatatypeEnumeration" use="required" fixed="binary"/>                                
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateBoolType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateBoolType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes simple boolean data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:union memberTypes="xsd:boolean sacm:EmptyStringType"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" type="sacm:SimpleDatatypeEnumeration" use="required" fixed="boolean"/>                                
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateFloatType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateFloatType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes simple float data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:union memberTypes="xsd:float sacm:EmptyStringType"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" type="sacm:SimpleDatatypeEnumeration" use="required" fixed="float"/>                                                
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateIntType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateIntType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes simple integer data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:union memberTypes="xsd:integer sacm:EmptyStringType"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" type="sacm:SimpleDatatypeEnumeration" use="required" fixed="int"/>                
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateEVRStringType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateEVRStringType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This type represents the epoch, version, and release fields, for an RPM package, as a single version string. It has the form "EPOCH:VERSION-RELEASE". Note that a null epoch (or '(none)' as returned by rpm) is equivalent to '0' and would hence have the form 0:VERSION-RELEASE. Comparisons involving this datatype should follow the algorithm of librpm's rpmvercmp() function.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                    <!-- TODO: Should there be a pattern restriction here to enforce the pattern mentioned above? -->
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" type="sacm:SimpleDatatypeEnumeration" use="required" fixed="evr_string"/>                
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateDebianEVRStringType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateDebianEVRStringType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This type represents the epoch, upstream_version, and debian_revision fields, for a Debian package, as a single version string. It has the form "EPOCH:UPSTREAM_VERSION-DEBIAN_REVISION". Note that a null epoch (or '(none)' as returned by dpkg) is equivalent to '0' and would hence have the form 0:UPSTREAM_VERSION-DEBIAN_REVISION. Comparisons involving this datatype should follow the algorithm outlined in Chapter 5 of the "Debian Policy Manual" (https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version). An implementation of this is the cmpversions() function in dpkg's enquiry.c.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                    <!-- TODO: Should there be a pattern restriction here to enforce the pattern mentioned above? -->
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" type="sacm:SimpleDatatypeEnumeration" use="required" fixed="debian_evr_string"/>                
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateVersionType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateVersionType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes simple version data.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" type="sacm:SimpleDatatypeEnumeration" use="required" fixed="version"/>                
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateFileSetRevisionType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateFileSetRevisionType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type represents the version string related to filesets in HP-UX.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" type="sacm:SimpleDatatypeEnumeration" use="required" fixed="fileset_revision"/>                
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateIOSVersionType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateIOSVersionType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type represents the version string related to CISCO IOS.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" use="optional" default="string">
+                    <xsd:simpleType>
+                        <xsd:restriction base="sacm:SimpleDatatypeEnumeration">
+                            <xsd:enumeration value="ios_version"/>
+                            <xsd:enumeration value="string">
+                                <xsd:annotation>
+                                    <xsd:documentation>'string' is included to allow for regular expressions on IOS version strings.</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:enumeration>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateStringType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateStringType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes simple string data.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="sacm-def:EntityStateSimpleBaseType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string"/>
+                </xsd:simpleType>
+                <xsd:attribute name="datatype" type="sacm:SimpleDatatypeEnumeration" use="optional" fixed="string"/>                                
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="EntityStateRecordType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateRecordType defines an entity that consists of a number of uniquely named fields. This structure is used for representing a record from a database query and other similar structures where multiple related fields must be collected at once. Note that for all entities of this type, the only allowed datatype is 'record' and the only allowed operation is 'equals'. During analysis of a system characteristics item, each field is analyzed and then the overall result for elements of this type is computed by logically anding the results for each field and then applying the entity_check attribute.</xsd:documentation>
+            <xsd:documentation>Note the datatype attribute must be set to 'record'.</xsd:documentation>
+            <!-- 
+                NOTE: The restriction that the only allowed datatype is 'record' is enforced by scheamtron rules placed on each entity that uses this type. 
+                This is due to the fact that this type is developed as an extension of the sacm-def:EntityStateComplexBaseType. This base type declares a datatype attribute. to restrict the 
+                datatype attribute to only allow 'record' would need a restriction. We cannot do both and xsd:extension and an xsd:restriction at the same time.
+            -->
+            <xsd:documentation>Note the operation attribute must be set to 'equals'.</xsd:documentation>
+            <xsd:documentation>Note the var_ref attribute is not permitted and the var_check attribute does not apply.</xsd:documentation>
+            <xsd:documentation>Note that when the mask attribute is set to 'true', all child field elements must be masked regardless of the child field's mask attribute value.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="sacm-def:EntityStateComplexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="field" type="sacm-def:EntityStateFieldType" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType> 
+    <xsd:complexType name="EntityStateFieldType">
+        <xsd:annotation>
+            <xsd:documentation>The EntityStateFieldType defines an element with simple content that represents a named field in a record that may contain any number of named fields. The EntityStateFieldType is much like all other entities with one significant difference, the EntityStateFieldType has a name attribute</xsd:documentation>
+            <xsd:documentation>The required name attribute specifies a unique name for the field. Field names are lowercase and must be unique within a given parent record element. When analyzing system characteristics an error should be reported for the result of a field that is present in the OVAL State, but not found in the system characteristics Item.</xsd:documentation>
+            <xsd:documentation>The optional entity_check attribute specifies how to handle multiple record fields with the same name in the OVAL Systems Characteristics file. For example, while collecting group information where one field is the represents the users that are members of the group.  It is very likely that there will be multiple fields with a name of 'user' associated with the group.  If the OVAL State defines the value of the field with name equal 'user' to equal 'Fred', then the entity_check attribute determines if all values for field entities must be equal to 'Fred', or at least one value must be equal to 'Fred', etc.</xsd:documentation>
+            <xsd:documentation>Note that when the mask attribute is set to 'true' on a field's parent element the field must be masked regardless of the field's mask attribute value.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:anySimpleType">
+                <xsd:attribute name="name" use="required">
+                    <xsd:annotation>
+                        <xsd:documentation>A string restricted to disallow upper case characters.</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:pattern value="[^A-Z]+"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+                <xsd:attributeGroup ref="sacm:EntityAttributeGroup"/>
+                <xsd:attribute name="entity_check" type="sacm:CheckEnumeration" use="optional" default="all"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+</xsd:schema>
