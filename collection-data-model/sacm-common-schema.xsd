@@ -802,7 +802,7 @@ at_least_one_exists ||  0   |  0+  |  1+  |  0+  ||  Error
                <xsd:pattern value="sacm:[A-Za-z0-9_\-\.]+:var:[1-9][0-9]*"/>
           </xsd:restriction>
      </xsd:simpleType>
-     <xsd:simpleType name="ItemIDPattern">
+     <xsd:simpleType name="CollectedItemIDPattern">
           <xsd:annotation>
                <xsd:documentation>Define the format for acceptable OVAL Item ids. The format is an integer. An item id is used to identify the different items found in an OVAL System Characteristics file.</xsd:documentation>
           </xsd:annotation>
