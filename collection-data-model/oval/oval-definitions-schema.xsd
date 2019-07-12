@@ -55,9 +55,9 @@
                         <xsd:documentation>The optional tests section contains 1 or more tests.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="collections" type="oval-coll:CollectionsType" minOccurs="0" maxOccurs="1">
+                <xsd:element name="collections" type="oval-coll:ObjectsType" minOccurs="0" maxOccurs="1">
                     <xsd:annotation>
-                        <xsd:documentation>The optional collections section contains 1 or more collections.</xsd:documentation>
+                        <xsd:documentation>The optional objects section contains 1 or more objects.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
                 <xsd:element name="states" type="oval-def:StatesType" minOccurs="0" maxOccurs="1">
@@ -369,17 +369,17 @@
         <xsd:attribute name="comment" type="oval:NonEmptyStringType" use="required"/>
         <xsd:attribute name="deprecated" type="xsd:boolean" use="optional" default="false"/>        
     </xsd:complexType>
-    <xsd:complexType name="CollectionRefType">
+    <xsd:complexType name="ObjectRefType">
         <xsd:annotation>
             <xsd:documentation>
-                The CollectionRefType complex type defines a collection reference to be used by oval Tests that are defined 
-                in the component schemas. The required collection_ref attribute specifies the id of the oval Collection being 
-                referenced.  The option collection_href attribute allows collection components to be imported from a separate
+                The ObjectRefType complex type defines an object reference to be used by oval Tests that are defined 
+                in the component schemas. The required object_ref attribute specifies the id of the oval object being 
+                referenced.  The optional object_href attribute allows collection components to be imported from a separate
                 oval collections document.
             </xsd:documentation>
         </xsd:annotation>
-        <xsd:attribute name="collection_ref" type="oval:CollectionIDPattern" use="required"/>
-        <xsd:attribute name="collection_href" type="xsd:anyURI" use="optional"/>
+        <xsd:attribute name="object_ref" type="oval:ObjectIDPattern" use="required"/>
+        <xsd:attribute name="object_href" type="xsd:anyURI" use="optional"/>
     </xsd:complexType>
     <xsd:complexType name="StateRefType">
         <xsd:annotation>

@@ -42,11 +42,11 @@
       <!-- =============================================================================== -->
       <xsd:element name="family_test" substitutionGroup="oval-def:test">
             <xsd:annotation>
-                  <xsd:documentation>The family_test element is used to check the family a certain system belongs to. This test basically allows the high level system types (window, unix, ios, etc.) to be tested. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a family_collection and the optional state element specifies the metadata to check.</xsd:documentation>
+                  <xsd:documentation>The family_test element is used to check the family a certain system belongs to. This test basically allows the high level system types (window, unix, ios, etc.) to be tested. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a family_object and the optional state element specifies the metadata to check.</xsd:documentation>
                   <xsd:appinfo>
                         <oval:element_mapping>
                               <oval:test>family_test</oval:test>
-                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">family_collection</oval:collection>
+                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">family_object</oval:collection>
                               <oval:state>family_state</oval:state>
                               <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent">family_item</oval:item>
                         </oval:element_mapping>
@@ -54,7 +54,7 @@
                   <xsd:appinfo>
                         <sch:pattern id="ind-def_famtst">
                               <sch:rule context="ind-def:family_test/ind-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:collections/ind-coll:family_collection/@id"><sch:value-of select="../@id"/> - the object child element of a family_test must reference a family_collection</sch:assert>
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ind-coll:family_object/@id"><sch:value-of select="../@id"/> - the object child element of a family_test must reference a family_object</sch:assert>
                               </sch:rule>
                               <sch:rule context="ind-def:family_test/ind-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ind-def:family_state/@id"><sch:value-of select="../@id"/> - the state child element of a family_test must reference a family_state</sch:assert>
@@ -66,7 +66,7 @@
                   <xsd:complexContent>
                         <xsd:extension base="oval-def:TestType">
                               <xsd:sequence>
-                                    <xsd:element name="collection" type="oval-def:CollectionRefType" />
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
                                     <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
                               </xsd:sequence>
                         </xsd:extension>
@@ -96,11 +96,11 @@
       <!-- =============================================================================== -->
       <xsd:element name="filehash_test" substitutionGroup="oval-def:test">
             <xsd:annotation>
-                  <xsd:documentation>The file hash test is used to check a specific hash type associated with a specified file. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a filehash58_collection and the optional state element specifies an expected hash value.</xsd:documentation>
+                  <xsd:documentation>The file hash test is used to check a specific hash type associated with a specified file. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a filehash58_object and the optional state element specifies an expected hash value.</xsd:documentation>
                   <xsd:appinfo>
                         <oval:element_mapping>
                               <oval:test>filehash_test</oval:test>
-                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">filehash_collection</oval:collection>
+                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">filehash_object</oval:collection>
                               <oval:state>filehash_state</oval:state>
                               <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent">filehash_item</oval:item>
                         </oval:element_mapping>
@@ -108,7 +108,7 @@
                   <xsd:appinfo>
                         <sch:pattern id="ind-def_filehash_test">
                               <sch:rule context="ind-def:filehash_test/ind-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:collections/ind-coll:filehash_collection/@id"><sch:value-of select="../@id"/> - the object child element of a filehash58_test must reference a filehash58_collection</sch:assert>
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ind-coll:filehash_object/@id"><sch:value-of select="../@id"/> - the object child element of a filehash58_test must reference a filehash58_object</sch:assert>
                               </sch:rule>
                               <sch:rule context="ind-def:filehash_test/ind-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ind-def:filehash_state/@id"><sch:value-of select="../@id"/> - the state child element of a filehash58_test must reference a filehash58_state</sch:assert>
@@ -120,7 +120,7 @@
                   <xsd:complexContent>
                         <xsd:extension base="oval-def:TestType">
                               <xsd:sequence>
-                                    <xsd:element name="collection" type="oval-def:CollectionRefType" />
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
                                     <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
                               </xsd:sequence>
                         </xsd:extension>
@@ -175,11 +175,11 @@
       <!-- =============================================================================== -->
       <xsd:element name="environmentvariable_test" substitutionGroup="oval-def:test">
             <xsd:annotation>
-                  <xsd:documentation>The environmentvariable_test element is used to check an environment variable found on the system. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a environmentvariable_collection and the optional state element specifies the metadata to check.</xsd:documentation>
+                  <xsd:documentation>The environmentvariable_test element is used to check an environment variable found on the system. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a environmentvariable_object and the optional state element specifies the metadata to check.</xsd:documentation>
                   <xsd:appinfo>
                         <oval:element_mapping>
                               <oval:test>environmentvariable_test</oval:test>
-                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">environmentvariable_collection</oval:collection>
+                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">environmentvariable_object</oval:collection>
                               <oval:state>environmentvariable_state</oval:state>
                               <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent">environmentvariable_item</oval:item>
                         </oval:element_mapping>
@@ -199,7 +199,7 @@
                   <xsd:appinfo>
                         <sch:pattern id="ind-def_envtst">
                               <sch:rule context="ind-def:environmentvariable_test/ind-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:collections/ind-coll:environmentvariable_collection/@id"><sch:value-of select="../@id"/> - the object child element of an environmentvariable_test must reference a environmentvariable_collection</sch:assert>
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ind-coll:environmentvariable_object/@id"><sch:value-of select="../@id"/> - the object child element of an environmentvariable_test must reference a environmentvariable_object</sch:assert>
                               </sch:rule>
                               <sch:rule context="ind-def:environmentvariable_test/ind-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ind-def:environmentvariable_state/@id"><sch:value-of select="../@id"/> - the state child element of an environmentvariable_test must reference a environmentvariable_state</sch:assert>
@@ -211,7 +211,7 @@
                   <xsd:complexContent>
                         <xsd:extension base="oval-def:TestType">
                               <xsd:sequence>
-                                    <xsd:element name="collection" type="oval-def:CollectionRefType" />
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
                                     <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
                               </xsd:sequence>
                         </xsd:extension>
@@ -258,11 +258,11 @@
       <!-- =============================================================================== -->
       <xsd:element name="processenvironment_test" substitutionGroup="oval-def:test">
             <xsd:annotation>
-                  <xsd:documentation>The processenvironment_test element is used to check an environment variable for the specified process, which is identified by its process ID, on the system . It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a environmentvariable_collection and the optional state element specifies the metadata to check.</xsd:documentation>
+                  <xsd:documentation>The processenvironment_test element is used to check an environment variable for the specified process, which is identified by its process ID, on the system . It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a environmentvariable_object and the optional state element specifies the metadata to check.</xsd:documentation>
                   <xsd:appinfo>
                         <oval:element_mapping>
                               <oval:test>processenvironment_test</oval:test>
-                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">processenvironment_collection</oval:collection>
+                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">processenvironment_object</oval:collection>
                               <oval:state>processenvironment_state</oval:state>
                               <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent">processenvironment_item</oval:item>
                         </oval:element_mapping>
@@ -270,7 +270,7 @@
                   <xsd:appinfo>
                         <sch:pattern id="ind-def_env58tst">
                               <sch:rule context="ind-def:processenvironment_test/ind-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:collections/ind-coll:processenvironment_collection/@id"><sch:value-of select="../@id"/> - the object child element of an processenvironment_test must reference a processenvironment_collection</sch:assert>
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ind-coll:processenvironment_object/@id"><sch:value-of select="../@id"/> - the object child element of an processenvironment_test must reference a processenvironment_object</sch:assert>
                               </sch:rule>
                               <sch:rule context="ind-def:processenvironment_test/ind-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ind-def:processenvironment_state/@id"><sch:value-of select="../@id"/> - the state child element of an processenvironment_test must reference a processenvironment_state</sch:assert>
@@ -282,7 +282,7 @@
                   <xsd:complexContent>
                         <xsd:extension base="oval-def:TestType">
                               <xsd:sequence>
-                                    <xsd:element name="collection" type="oval-def:CollectionRefType" />
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
                                     <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
                               </xsd:sequence>
                         </xsd:extension>
@@ -322,11 +322,11 @@
       <!-- =============================================================================== -->
       <xsd:element name="ldap_test" substitutionGroup="oval-def:test">
             <xsd:annotation>
-                  <xsd:documentation>The LDAP test is used to check information about specific entries in an LDAP directory. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references an ldap_collection and the optional state element, ldap_state, specifies the metadata to check.</xsd:documentation>
+                  <xsd:documentation>The LDAP test is used to check information about specific entries in an LDAP directory. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references an ldap_object and the optional state element, ldap_state, specifies the metadata to check.</xsd:documentation>
                   <xsd:appinfo>
                         <oval:element_mapping>
                               <oval:test>ldap_test</oval:test>
-                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">ldap_collection</oval:collection>
+                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">ldap_object</oval:collection>
                               <oval:state>ldap_state</oval:state>
                               <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent">ldap_item</oval:item>
                         </oval:element_mapping>
@@ -334,7 +334,7 @@
                   <xsd:appinfo>
                         <sch:pattern id="ind-def_ldaptst">
                               <sch:rule context="ind-def:ldap_test/ind-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:collections/ind-coll:ldap_collection/@id"><sch:value-of select="../@id"/> - the object child element of an ldap_test must reference an ldap_collection</sch:assert>
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ind-coll:ldap_object/@id"><sch:value-of select="../@id"/> - the object child element of an ldap_test must reference an ldap_object</sch:assert>
                               </sch:rule>
                               <sch:rule context="ind-def:ldap_test/ind-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ind-def:ldap_state/@id"><sch:value-of select="../@id"/> - the state child element of an ldap_test must reference an ldap_state</sch:assert>
@@ -346,7 +346,7 @@
                   <xsd:complexContent>
                         <xsd:extension base="oval-def:TestType">
                               <xsd:sequence>
-                                    <xsd:element name="collection" type="oval-def:CollectionRefType"/>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType"/>
                                     <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
                               </xsd:sequence>
                         </xsd:extension>
@@ -401,11 +401,11 @@
       <!-- =============================================================================== -->
       <xsd:element name="sql_test" substitutionGroup="oval-def:test">
             <xsd:annotation>
-                  <xsd:documentation>The sql test is used to check information stored in a database. It is often the case that applications store configuration settings in a database as opposed to a file. This test has been designed to enable those settings to be tested. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a wmi_collection and the optional state element specifies the metadata to check.</xsd:documentation>
+                  <xsd:documentation>The sql test is used to check information stored in a database. It is often the case that applications store configuration settings in a database as opposed to a file. This test has been designed to enable those settings to be tested. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a wmi_object and the optional state element specifies the metadata to check.</xsd:documentation>
                   <xsd:appinfo>
                         <oval:element_mapping>
                               <oval:test>sql_test</oval:test>
-                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">sql_collection</oval:collection>
+                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">sql_object</oval:collection>
                               <oval:state>sql_state</oval:state>
                               <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent">sql_item</oval:item>
                         </oval:element_mapping>
@@ -413,7 +413,7 @@
                   <xsd:appinfo>
                         <sch:pattern id="ind-def_sql_test">
                               <sch:rule context="ind-def:sql_test/ind-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:collections/ind-coll:sql_collection/@id"><sch:value-of select="../@id"/> - the object child element of a sql_test must reference a sql_collection</sch:assert>
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ind-coll:sql_object/@id"><sch:value-of select="../@id"/> - the object child element of a sql_test must reference a sql_object</sch:assert>
                               </sch:rule>
                               <sch:rule context="ind-def:sql_test/ind-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ind-def:sql_state/@id"><sch:value-of select="../@id"/> - the state child element of a sql_test must reference a sql_state</sch:assert>
@@ -425,7 +425,7 @@
                   <xsd:complexContent>
                         <xsd:extension base="oval-def:TestType">
                               <xsd:sequence>
-                                    <xsd:element name="collection" type="oval-def:CollectionRefType"/>
+                                    <xsd:element name="object" type="oval-def:ObjectRefType"/>
                                     <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
                               </xsd:sequence>
                         </xsd:extension>
@@ -486,11 +486,11 @@
       <!-- =============================================================================== -->
       <xsd:element name="textfilecontent_test" substitutionGroup="oval-def:test">
             <xsd:annotation>
-                  <xsd:documentation>The textfilecontent_test element is used to check the contents of a text file (aka a configuration file) by looking at individual blocks of text. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a textfilecontent_collection and the optional state element specifies the metadata to check.</xsd:documentation>
+                  <xsd:documentation>The textfilecontent_test element is used to check the contents of a text file (aka a configuration file) by looking at individual blocks of text. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a textfilecontent_object and the optional state element specifies the metadata to check.</xsd:documentation>
                   <xsd:appinfo>
                         <oval:element_mapping>
                               <oval:test>textfilecontent_test</oval:test>
-                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">textfilecontent_collection</oval:collection>
+                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">textfilecontent_object</oval:collection>
                               <oval:state>textfilecontent_state</oval:state>
                               <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent">textfilecontent_item</oval:item>
                         </oval:element_mapping>
@@ -498,7 +498,7 @@
                   <xsd:appinfo>
                         <sch:pattern id="ind-def_txt54tst">
                               <sch:rule context="ind-def:textfilecontent_test/ind-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:collections/ind-coll:textfilecontent_collection/@id"><sch:value-of select="../@id"/> - the object child element of a textfilecontent_test must reference a textfilecontent_collection</sch:assert>
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ind-coll:textfilecontent_object/@id"><sch:value-of select="../@id"/> - the object child element of a textfilecontent_test must reference a textfilecontent_object</sch:assert>
                               </sch:rule>
                               <sch:rule context="ind-def:textfilecontent_test/ind-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ind-def:textfilecontent_state/@id"><sch:value-of select="../@id"/> - the state child element of a textfilecontent_test must reference a textfilecontent_state</sch:assert>
@@ -510,7 +510,7 @@
                   <xsd:complexContent>
                         <xsd:extension base="oval-def:TestType">
                               <xsd:sequence>
-                                    <xsd:element name="collection" type="oval-def:CollectionRefType" />
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
                                     <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
                               </xsd:sequence>
                         </xsd:extension>
@@ -595,11 +595,11 @@
       <!-- =============================================================================== -->
       <xsd:element name="variable_test" substitutionGroup="oval-def:test">
             <xsd:annotation>
-                  <xsd:documentation>The variable test allows the value of a variable to be compared to a defined value. As an example one might use this test to validate that a variable being passed in from an external source falls within a specified range. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a variable_collection and the optional state element specifies the value to check.</xsd:documentation>
+                  <xsd:documentation>The variable test allows the value of a variable to be compared to a defined value. As an example one might use this test to validate that a variable being passed in from an external source falls within a specified range. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a variable_object and the optional state element specifies the value to check.</xsd:documentation>
                   <xsd:appinfo>
                         <oval:element_mapping>
                               <oval:test>variable_test</oval:test>
-                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">variable_collection</oval:collection>
+                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">variable_object</oval:collection>
                               <oval:state>variable_state</oval:state>
                               <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent">variable_item</oval:item>
                         </oval:element_mapping>
@@ -607,7 +607,7 @@
                   <xsd:appinfo>
                         <sch:pattern id="ind-def_vattst">
                               <sch:rule context="ind-def:variable_test/ind-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:collections/ind-coll:variable_collection/@id"><sch:value-of select="../@id"/> - the object child element of a variable_test must reference a variable_collection</sch:assert>
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ind-coll:variable_object/@id"><sch:value-of select="../@id"/> - the object child element of a variable_test must reference a variable_object</sch:assert>
                               </sch:rule>
                               <sch:rule context="ind-def:variable_test/ind-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ind-def:variable_state/@id"><sch:value-of select="../@id"/> - the state child element of a variable_test must reference a variable_state</sch:assert>
@@ -619,7 +619,7 @@
                   <xsd:complexContent>
                         <xsd:extension base="oval-def:TestType">
                               <xsd:sequence>
-                                    <xsd:element name="collection" type="oval-def:CollectionRefType" />
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
                                     <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
                               </xsd:sequence>
                         </xsd:extension>
@@ -667,11 +667,11 @@
       <!-- =============================================================================== -->
       <xsd:element name="xmlfilecontent_test" substitutionGroup="oval-def:test">
             <xsd:annotation>
-                  <xsd:documentation>The xmlfilecontent_test element is used to explore the contents of an xml file. This test allows specific pieces of an xml document specified using xpath to be tested. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a xmlfilecontent_collection and the optional state element specifies the metadata to check.</xsd:documentation>
+                  <xsd:documentation>The xmlfilecontent_test element is used to explore the contents of an xml file. This test allows specific pieces of an xml document specified using xpath to be tested. It extends the standard TestType as defined in the oval-definitions-schema and one should refer to the TestType description for more information. The required object element references a xmlfilecontent_object and the optional state element specifies the metadata to check.</xsd:documentation>
                   <xsd:appinfo>
                         <oval:element_mapping>
                               <oval:test>xmlfilecontent_test</oval:test>
-                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">xmlfilecontent_collection</oval:collection>
+                              <oval:collection target_namespace="http://oval.cisecurity.org/XMLSchema/oval-collection-6#independent">xmlfilecontent_object</oval:collection>
                               <oval:state>xmlfilecontent_state</oval:state>
                               <oval:item target_namespace="http://oval.mitre.org/XMLSchema/oval-system-characteristics-5#independent">xmlfilecontent_item</oval:item>
                         </oval:element_mapping>
@@ -679,7 +679,7 @@
                   <xsd:appinfo>
                         <sch:pattern id="ind-def_xmltst">
                               <sch:rule context="ind-def:xmlfilecontent_test/ind-def:object">
-                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:collections/ind-coll:xmlfilecontent_collection/@id"><sch:value-of select="../@id"/> - the object child element of a xmlfilecontent_test must reference a xmlfilecontent_collection</sch:assert>
+                                    <sch:assert test="@object_ref=ancestor::oval-def:oval_definitions/oval-def:objects/ind-coll:xmlfilecontent_object/@id"><sch:value-of select="../@id"/> - the object child element of a xmlfilecontent_test must reference a xmlfilecontent_object</sch:assert>
                               </sch:rule>
                               <sch:rule context="ind-def:xmlfilecontent_test/ind-def:state">
                                     <sch:assert test="@state_ref=ancestor::oval-def:oval_definitions/oval-def:states/ind-def:xmlfilecontent_state/@id"><sch:value-of select="../@id"/> - the state child element of a xmlfilecontent_test must reference a xmlfilecontent_state</sch:assert>
@@ -691,7 +691,7 @@
                   <xsd:complexContent>
                         <xsd:extension base="oval-def:TestType">
                               <xsd:sequence>
-                                    <xsd:element name="collection" type="oval-def:CollectionRefType" />
+                                    <xsd:element name="object" type="oval-def:ObjectRefType" />
                                     <xsd:element name="state" type="oval-def:StateRefType" minOccurs="0" maxOccurs="unbounded"/>
                               </xsd:sequence>
                         </xsd:extension>
@@ -1207,7 +1207,7 @@
                                 <xsd:documentation>Numeric String, corresponding to OID 1.3.6.1.4.1.1466.115.121.1.36</xsd:documentation>
                             </xsd:annotation>
                         </xsd:enumeration>
-                        <xsd:enumeration value="LDAPTYPE_collection_CLASS_DESCRIP_STRING">
+                        <xsd:enumeration value="LDAPTYPE_object_CLASS_DESCRIP_STRING">
                             <xsd:annotation>
                                 <xsd:documentation>Object Class Description, corresponding to OID 1.3.6.1.4.1.1466.115.121.1.37</xsd:documentation>
                             </xsd:annotation>
