@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-common-6" schemaLocation="oval-common-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6" schemaLocation="oval-collections-schema.xsd"/>
+    
+    <!--<xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#aix" schemaLocation="aix-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#android" schemaLocation="android-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#apache" schemaLocation="apache-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#apple_ios" schemaLocation="apple-ios-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#asa" schemaLocation="asa-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#catos" schemaLocation="catos-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#esx" schemaLocation="esx-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#freebsd" schemaLocation="freebsd-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#hpux" schemaLocation="hpux-collections-schema.xsd"/>-->
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#independent" schemaLocation="independent-collections-schema.xsd"/>
+    <!--<xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#ios" schemaLocation="ios-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#iosxe" schemaLocation="iosxe-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#junos" schemaLocation="junos-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#linux" schemaLocation="linux-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#macos" schemaLocation="macos-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#netconf" schemaLocation="netconf-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#pixos" schemaLocation="pixos-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#sharepoint" schemaLocation="sharepoint-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#solaris" schemaLocation="solaris-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#unix" schemaLocation="unix-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#windows" schemaLocation="windows-collections-schema.xsd"/>
+    
+    
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#esxi" schemaLocation="x-vmware-esxi-65-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.mitre.org/XMLSchema/x-unix-invalidhomedirownership" schemaLocation="x-unix-invalidhomedirownership-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#iis" schemaLocation="x-windows-iis-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#cmd" schemaLocation="x-shellcommand-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#x-docker" schemaLocation="x-docker-collections-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-collections-6#kubernetes" schemaLocation="x-kubernetes-collections-schema.xsd"/>-->
+</xsd:schema>
