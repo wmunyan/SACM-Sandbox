@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sacm_collections xmlns="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6" xmlns:sacm="http://sacm.cisecurity.org/XMLSchema/sacm-common-6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xsi:schemaLocation="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6 sacm-collections-schema.xsd">
+<sacm_collections xmlns="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6" 
+    xmlns:sacm="http://sacm.cisecurity.org/XMLSchema/sacm-common-6" 
+    xmlns:ind="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6#independent" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6 sacm-collections-schema.xsd">
+    
     <generator>
         <sacm:product_name>SACM Collections</sacm:product_name>
         <sacm:product_version>0.0.1</sacm:product_version>
         <sacm:schema_version>6.0.0</sacm:schema_version>
         <sacm:timestamp>2019-06-17T15:12:51.340-04:00</sacm:timestamp>
     </generator>
+    
+    <collections>
+        <!-- Collect the OS family -->
+        <ind:family_collection id="sacm:org.cisecurity:col:1" version="1"/>
+        
+        <!-- Collect all environment variables -->
+        <ind:environmentvariable_collection id="sacm:org.cisecurity:col:2" version="1">
+            <ind:name operation="pattern match">.*</ind:name>
+        </ind:environmentvariable_collection>
+        
+        <!-- Collect both the MD5 and SHA-1 hashes of the /bin/ls file -->
+        <!-- This should yield 2 collected items, 1 for each hash type -->
+        <ind:filehash_collection id="sacm:org.cisecurity:col:3" version="1">
+            <ind:filepath>/bin/ls</ind:filepath>
+            <ind:hash_type var_ref="sacm:org.cisecurity:var:3"/>
+        </ind:filehash_collection>
+    </collections>
+    
+    <variables>
+        <sacm:constant_variable id="sacm:org.cisecurity:var:3" version="1" datatype="string" comment="MD5 and SHA-1 Hash Types">
+            <sacm:value>MD5</sacm:value>
+            <sacm:value>SHA-1</sacm:value>
+        </sacm:constant_variable>
+    </variables>
 </sacm_collections>
