@@ -55,7 +55,7 @@
                         <xsd:documentation>The optional tests section contains 1 or more tests.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="collections" type="oval-coll:ObjectsType" minOccurs="0" maxOccurs="1">
+                <xsd:element name="objects" type="oval-coll:ObjectsType" minOccurs="0" maxOccurs="1">
                     <xsd:annotation>
                         <xsd:documentation>The optional objects section contains 1 or more objects.</xsd:documentation>
                     </xsd:annotation>
@@ -109,7 +109,7 @@
             <xsd:annotation>
                 <xsd:documentation>Enforce uniqueness amongst the ids differentiating the individual variable elements.</xsd:documentation>
             </xsd:annotation>
-            <xsd:selector xpath="oval:variables/*"/>
+            <xsd:selector xpath="oval-def:variables/*"/>
             <xsd:field xpath="@id"/>
         </xsd:key>
         <xsd:keyref name="extendKeyRef" refer="oval-def:definitionKey">
