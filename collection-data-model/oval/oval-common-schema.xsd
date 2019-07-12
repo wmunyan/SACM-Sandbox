@@ -821,12 +821,12 @@ at_least_one_exists ||  0   |  0+  |  1+  |  0+  ||  Error
             <xsd:pattern value="oval:[A-Za-z0-9_\-\.]+:def:[1-9][0-9]*"/>
         </xsd:restriction>
     </xsd:simpleType>
-    <xsd:simpleType name="CollectionIDPattern">
+    <xsd:simpleType name="ObjectIDPattern">
         <xsd:annotation>
-            <xsd:documentation>Define the format for acceptable SACM Collection ids. An urn format is used with the id starting with the word oval followed by a unique string, followed by the three letter code 'col', and ending with an integer.</xsd:documentation>
+            <xsd:documentation>Define the format for acceptable OVAL object ids. An urn format is used with the id starting with the word oval followed by a unique string, followed by the three letter code 'obj', and ending with an integer.</xsd:documentation>
         </xsd:annotation>
         <xsd:restriction base="xsd:string">
-            <xsd:pattern value="oval:[A-Za-z0-9_\-\.]+:col:[1-9][0-9]*"/>
+            <xsd:pattern value="oval:[A-Za-z0-9_\-\.]+:obj:[1-9][0-9]*"/>
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:simpleType name="StateIDPattern">
@@ -853,7 +853,7 @@ at_least_one_exists ||  0   |  0+  |  1+  |  0+  ||  Error
             <xsd:pattern value="oval:[A-Za-z0-9_\-\.]+:var:[1-9][0-9]*"/>
         </xsd:restriction>
     </xsd:simpleType>
-    <xsd:simpleType name="CollectedItemIDPattern">
+    <xsd:simpleType name="ItemIDPattern">
         <xsd:annotation>
             <xsd:documentation>Define the format for acceptable OVAL Item ids. The format is an integer. An item id is used to identify the different items found in an OVAL System Characteristics file.</xsd:documentation>
         </xsd:annotation>
@@ -1067,7 +1067,7 @@ at_least_one_exists ||  0   |  0+  |  1+  |  0+  ||  Error
             <xsd:documentation>Any value that is pulled directly off the local system is defined by the basic component element. For example, the name of a user or the value of a registry key. Please refer to the definition of the ObjectComponentType for more information. A value can also be obtained from another variable. The variable element identifies a variable id to pull a value(s) from. Please refer to the definition of the VariableComponentType for more information. Literal values can also be specified.</xsd:documentation>
         </xsd:annotation>
         <xsd:choice>
-            <xsd:element name="object_component" type="oval:CollectionComponentType"/>
+            <xsd:element name="object_component" type="oval:ObjectComponentType"/>
             <xsd:element name="variable_component" type="oval:VariableComponentType"/>
             <xsd:element name="literal_component" type="oval:LiteralComponentType"/>
             <xsd:group ref="oval:FunctionGroup"/>
@@ -1083,14 +1083,14 @@ at_least_one_exists ||  0   |  0+  |  1+  |  0+  ||  Error
             </xsd:extension>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionComponentType">
+    <xsd:complexType name="ObjectComponentType">
         <xsd:annotation>
             <xsd:documentation>The ObjectComponentType complex type defines a specific value or set of values on the local system to obtain.</xsd:documentation>
             <xsd:documentation>The required object_ref attribute provides a reference to an existing OVAL Object declaration. The referenced OVAL Object specifies a set of OVAL Items to collect. Note that an OVAL Object might identify 0, 1, or many OVAL Items on a system. If no items are found on the system then an error should be reported when determining the value of an ObjectComponentType. If 1 or more OVAL Items are found then each OVAL Item will be considered and the ObjectComponentType may have one or more values.</xsd:documentation>
             <xsd:documentation>The required item_field attribute specifies the name of the entity whose value will be retrieved from each OVAL Item collected by the referenced OVAL Object. For example, if the object_ref references a win-def:file_object, the item_field may specify the 'version' entity as the field to use as the value of the ObjectComponentType. Note that an OVAL Item may have 0, 1, or many entities whose name matches the specified item_field value. If an entity is not found with a name that matches the value of the item_field an error should be reported when determining the value of an ObjectComponentType. If 1 or more matching entities are found in a single OVAL Item the value of the ObjectComponentType is the list of the values from each of the matching entities.</xsd:documentation>
             <xsd:documentation>The optional record_field attribute specifies the name of a field in a record entity in an OVAL Item. The record_field attribute allows the value of a specific field to be retrieved from an entity with a datatype of 'record'. If a field with a matching name attribute value is not found in the referenced OVAL Item entity an error should be reported when determining the value of the ObjectComponentType.</xsd:documentation>
         </xsd:annotation>
-        <xsd:attribute name="collection_ref" type="oval:CollectionIDPattern" use="required"/>
+        <xsd:attribute name="object_ref" type="oval:ObjectIDPattern" use="required"/>
         <xsd:attribute name="item_field" type="oval:NonEmptyStringType" use="required"/>
         <xsd:attribute name="record_field" type="oval:NonEmptyStringType" use="optional"/>
     </xsd:complexType>

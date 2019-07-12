@@ -9,12 +9,12 @@
     <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
 
     <!-- =============================================================================== -->
-    <!-- ======================== Root OVAL Collections Element ======================== -->
+    <!-- ======================== Root OVAL objects Element ======================== -->
     <!-- =============================================================================== -->
-    <xsd:element name="sacm_collections">
+    <xsd:element name="oval_objects">
         <xsd:annotation>
             <xsd:documentation>
-                The sacm_collections element is the root of an SACM Collection Document. Its purpose is to bind together the major sections 
+                The sacm_objects element is the root of an SACM object Document. Its purpose is to bind together the major sections 
                 of a document - generator, objects, filters, and variables - which are the children of the root element.
             </xsd:documentation>
         </xsd:annotation>
@@ -25,9 +25,9 @@
                         <xsd:documentation>The required generator section provides information about when the definition file was compiled and under what version.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="collections" type="oval-coll:CollectionsType" minOccurs="0" maxOccurs="1">
+                <xsd:element name="objects" type="oval-coll:ObjectsType" minOccurs="0" maxOccurs="1">
                     <xsd:annotation>
-                        <xsd:documentation>The optional collections section contains 1 or more collections.</xsd:documentation>
+                        <xsd:documentation>The optional objects section contains 1 or more objects.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
                 <xsd:element name="filters" type="oval-coll:FiltersType" minOccurs="0" maxOccurs="1">
@@ -47,11 +47,11 @@
                 </xsd:element>
             </xsd:sequence>
         </xsd:complexType>
-        <xsd:key name="collectionKey">
+        <xsd:key name="objectKey">
             <xsd:annotation>
-                <xsd:documentation>Enforce uniqueness amongst the ids differentiating the individual collection elements.</xsd:documentation>
+                <xsd:documentation>Enforce uniqueness amongst the ids differentiating the individual object elements.</xsd:documentation>
             </xsd:annotation>
-            <xsd:selector xpath="oval-coll:collections/*"/>
+            <xsd:selector xpath="oval-coll:objects/*"/>
             <xsd:field xpath="@id"/>
         </xsd:key>
         <xsd:key name="filterKey">
@@ -68,12 +68,12 @@
             <xsd:selector xpath="oval:variables/*"/>
             <xsd:field xpath="@id"/>
         </xsd:key>
-        <xsd:keyref name="collectionKeyRef" refer="oval-coll:collectionKey">
+        <xsd:keyref name="objectKeyRef" refer="oval-coll:objectKey">
             <xsd:annotation>
-                <xsd:documentation>Requires each collection reference to refer to a valid collection id.</xsd:documentation>
+                <xsd:documentation>Requires each object reference to refer to a valid object id.</xsd:documentation>
             </xsd:annotation>
             <xsd:selector xpath=".//*"/>
-            <xsd:field xpath="@collection_ref"/>
+            <xsd:field xpath="@object_ref"/>
         </xsd:keyref>
         <xsd:keyref name="filterKeyRef" refer="oval-coll:filterKey">
             <xsd:annotation>
@@ -87,22 +87,22 @@
     <!-- =============================================================================== -->
     <!-- ==================================  OBJECTS  ================================== -->
     <!-- =============================================================================== -->
-    <xsd:complexType name="CollectionsType">
+    <xsd:complexType name="ObjectsType">
         <xsd:annotation>
             <xsd:documentation>The ObjectsType complex type is a container for one or more object child elements. Each object element provides details that define a unique set of matching items to be used by an OVAL Test. Please refer to the description of the object element for more information about an individual object.</xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element ref="oval-coll:collection" minOccurs="1" maxOccurs="unbounded"/>
+            <xsd:element ref="oval-coll:object" minOccurs="1" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="collection" type="oval-coll:CollectionType" abstract="true">
+    <xsd:element name="object" type="oval-coll:ObjectType" abstract="true">
         <xsd:annotation>
             <xsd:documentation>The object element is an abstract element that is meant to be extended (via substitution groups) by the objects found in the component schemas. An actual object element is not valid. The use of this abstract element simplifies the OVAL schema by allowing individual objects to inherit any common elements and attributes from the base ObjectType.  Please refer to the description of the ObjectType complex type for more information.</xsd:documentation>
             <xsd:documentation>An object is used to identify a set of items to collect.  The author of a schema object must define sufficient object entities to allow a user to identify a unique item to be collected.</xsd:documentation>
             <xsd:documentation>A simple object typically results in a single file, process, etc being identified.  But through the use of pattern matches, sets, and variables, multiple matching items can be identified.  The set of items matching the object can then be used by an OVAL test and compared against an OVAL state.</xsd:documentation>
         </xsd:annotation>
     </xsd:element>
-    <xsd:complexType name="CollectionType">
+    <xsd:complexType name="ObjectType">
         <xsd:annotation>
             <xsd:documentation>The base type of every object includes an optional notes element. The notes element of an object should be used to hold information that might be helpful to someone examining the technical aspects of the object. For example, why certain values have been used, or maybe a link to where further information can be found. Please refer to the description of the NotesType complex type for more information about the notes element.</xsd:documentation>
             <xsd:documentation>The required id attribute uniquely identifies each object, and must conform to the format specified by the ObjectIdPattern simple type. The required version attribute holds the current version of the object element. Versions are integers, starting at 1 and incrementing every time an object is modified. The optional comment attribute provides a short description of the object. The optional deprecated attribute signifies that an id is no longer to be used or referenced but the information has been kept around for historic purposes.</xsd:documentation>
@@ -111,7 +111,7 @@
             <xsd:element ref="ds:Signature" minOccurs="0" maxOccurs="1"/>
             <xsd:element ref="oval:notes" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
-        <xsd:attribute name="id" type="oval:CollectionIDPattern" use="required"/>
+        <xsd:attribute name="id" type="oval:ObjectIDPattern" use="required"/>
         <xsd:attribute name="version" type="xsd:nonNegativeInteger" use="required"/>
         <xsd:attribute name="comment" type="oval:NonEmptyStringType" use="optional"/>
         <xsd:attribute name="deprecated" type="xsd:boolean" use="optional" default="false"/>
@@ -129,7 +129,7 @@
                     <xsd:element ref="oval-coll:set" minOccurs="1" maxOccurs="2"/>
                 </xsd:sequence>
                 <xsd:sequence>
-                    <xsd:element name="object_reference" type="oval:CollectionIDPattern" minOccurs="1" maxOccurs="2"/>
+                    <xsd:element name="object_reference" type="oval:ObjectIDPattern" minOccurs="1" maxOccurs="2"/>
                     <xsd:element ref="oval-coll:filter" minOccurs="0" maxOccurs="unbounded"/>
                 </xsd:sequence>
             </xsd:choice>
@@ -252,7 +252,7 @@
             </xsd:enumeration>
             <xsd:enumeration value="INTERSECTION">
                 <xsd:annotation>
-                    <xsd:documentation>The intersection of two sets in OVAL results in a unique set that contains everything that belongs to both sets in the collection, but nothing else. If A and B are sets, then the intersection of A and B contains all the elements of A that also belong to B, but no other elements, with the duplicates removed.</xsd:documentation>
+                    <xsd:documentation>The intersection of two sets in OVAL results in a unique set that contains everything that belongs to both sets in the object, but nothing else. If A and B are sets, then the intersection of A and B contains all the elements of A that also belong to B, but no other elements, with the duplicates removed.</xsd:documentation>
                 </xsd:annotation>
             </xsd:enumeration>
             <xsd:enumeration value="UNION">
@@ -266,9 +266,9 @@
     <!-- =============================================================================== -->
     <!-- ===============================  ENTITY TYPES  ================================ -->
     <!-- =============================================================================== -->
-    <xsd:complexType name="CollectionIPAddressType">
+    <xsd:complexType name="objectIPAddressType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionIPAddressType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any IPv4/IPv6 address or address prefix.</xsd:documentation>
+            <xsd:documentation>The objectIPAddressType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any IPv4/IPv6 address or address prefix.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="oval:EntitySimpleBaseType">
@@ -286,9 +286,9 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionIPAddressStringType">
+    <xsd:complexType name="objectIPAddressStringType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionIPAddressStringType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any IPv4/IPv6 address, address prefix, or its string representation.</xsd:documentation>
+            <xsd:documentation>The objectIPAddressStringType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any IPv4/IPv6 address, address prefix, or its string representation.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="oval:EntitySimpleBaseType">
@@ -307,9 +307,9 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionAnySimpleType">
+    <xsd:complexType name="objectAnySimpleType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionAnySimpleType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any simple data.</xsd:documentation>
+            <xsd:documentation>The objectAnySimpleType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any simple data.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="oval:EntitySimpleBaseType">
@@ -320,7 +320,7 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionBinaryType">
+    <xsd:complexType name="objectBinaryType">
         <xsd:annotation>
             <xsd:documentation>The EntityBinaryType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes simple binary data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
         </xsd:annotation>
@@ -333,7 +333,7 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionBoolType">
+    <xsd:complexType name="objectBoolType">
         <xsd:annotation>
             <xsd:documentation>The EntityBoolType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes simple boolean data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
         </xsd:annotation>
@@ -346,9 +346,9 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionFloatType">
+    <xsd:complexType name="objectFloatType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionFloatType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes simple float data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
+            <xsd:documentation>The objectFloatType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes simple float data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="oval:EntitySimpleBaseType">
@@ -359,7 +359,7 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionIntType">
+    <xsd:complexType name="objectIntType">
         <xsd:annotation>
             <xsd:documentation>The EntityIntType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes simple integer data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
         </xsd:annotation>
@@ -372,7 +372,7 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionStringType">
+    <xsd:complexType name="objectStringType">
         <xsd:annotation>
             <xsd:documentation>The EntityStringType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes simple string data.</xsd:documentation>
         </xsd:annotation>
@@ -385,9 +385,9 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionVersionType">
+    <xsd:complexType name="objectVersionType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionVersionType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes simple version data.</xsd:documentation>
+            <xsd:documentation>The objectVersionType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes simple version data.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="oval:EntitySimpleBaseType">
@@ -398,9 +398,9 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionRecordType">
+    <xsd:complexType name="objectRecordType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionRecordType defines an entity that consists of a number of uniquely named fields. This structure is used for representing a record from a database query and other similar structures where multiple related fields must be represented at once. Note that for all entities of this type, the only allowed datatype is 'record' and the only allowed operation is 'equals'. During analysis of a system characteristics item, each field is analyzed and then the overall result for elements of this type is computed by logically anding the results for each field and then applying the entity_check attribute.</xsd:documentation>
+            <xsd:documentation>The objectRecordType defines an entity that consists of a number of uniquely named fields. This structure is used for representing a record from a database query and other similar structures where multiple related fields must be represented at once. Note that for all entities of this type, the only allowed datatype is 'record' and the only allowed operation is 'equals'. During analysis of a system characteristics item, each field is analyzed and then the overall result for elements of this type is computed by logically anding the results for each field and then applying the entity_check attribute.</xsd:documentation>
             <xsd:documentation>Note the datatype attribute must be set to 'record'.</xsd:documentation>
             <!-- 
                 NOTE: The restriction that the only allowed datatype is 'record' is enforced by scheamtron rules placed on each entity that uses this type. 
@@ -414,14 +414,14 @@
         <xsd:complexContent>
             <xsd:extension base="oval:EntityComplexBaseType">
                 <xsd:sequence>
-                    <xsd:element name="field" type="oval-coll:CollectionFieldType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="field" type="oval-coll:objectFieldType" minOccurs="0" maxOccurs="unbounded"/>
                 </xsd:sequence>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType> 
-    <xsd:complexType name="CollectionFieldType">
+    <xsd:complexType name="objectFieldType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionFieldType defines an element with simple content that represents a named field in a record that may contain any number of named fields. The CollectionFieldType is much like all other entities with one significant difference, the CollectionFieldType has a name attribute</xsd:documentation>
+            <xsd:documentation>The objectFieldType defines an element with simple content that represents a named field in a record that may contain any number of named fields. The objectFieldType is much like all other entities with one significant difference, the objectFieldType has a name attribute</xsd:documentation>
             <xsd:documentation>The required name attribute specifies a unique name for the field. Field names are lowercase and must be unique within a given parent record element. When analyzing system characteristics an error should be reported for the result of a field that is present in the OVAL State, but not found in the system characteristics Item.</xsd:documentation>
             <xsd:documentation>The optional entity_check attribute specifies how to handle multiple record fields with the same name in the OVAL Systems Characteristics file. For example, while collecting group information where one field is the represents the users that are members of the group.  It is very likely that there will be multiple fields with a name of 'user' associated with the group.  If the OVAL State defines the value of the field with name equal 'user' to equal 'Fred', then the entity_check attribute determines if all values for field entities must be equal to 'Fred', or at least one value must be equal to 'Fred', etc.</xsd:documentation>
             <xsd:documentation>Note that when the mask attribute is set to 'true' on a field's parent element the field must be masked regardless of the field's mask attribute value.</xsd:documentation>
@@ -446,7 +446,7 @@
 
     <xsd:complexType name="FilterIPAddressType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionIPAddressType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any IPv4/IPv6 address or address prefix.</xsd:documentation>
+            <xsd:documentation>The objectIPAddressType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any IPv4/IPv6 address or address prefix.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="oval:EntitySimpleBaseType">
@@ -466,7 +466,7 @@
     </xsd:complexType>
     <xsd:complexType name="FilterIPAddressStringType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionIPAddressStringType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any IPv4/IPv6 address, address prefix, or its string representation.</xsd:documentation>
+            <xsd:documentation>The objectIPAddressStringType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any IPv4/IPv6 address, address prefix, or its string representation.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="oval:EntitySimpleBaseType">
@@ -487,7 +487,7 @@
     </xsd:complexType>
     <xsd:complexType name="FilterAnySimpleType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionAnySimpleType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any simple data.</xsd:documentation>
+            <xsd:documentation>The objectAnySimpleType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes any simple data.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="oval:EntitySimpleBaseType">
@@ -526,7 +526,7 @@
     </xsd:complexType>
     <xsd:complexType name="FilterFloatType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionFloatType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes simple float data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
+            <xsd:documentation>The objectFloatType type is extended by the entities of an individual OVAL Object. This type provides uniformity to each object entity by including the attributes found in the EntitySimpleBaseType. This specific type describes simple float data. The empty string is also allowed when using a variable reference with an element.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="oval:EntitySimpleBaseType">
@@ -565,7 +565,7 @@
     </xsd:complexType>
     <xsd:complexType name="FilterVersionType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionVersionType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes simple version data.</xsd:documentation>
+            <xsd:documentation>The objectVersionType type is extended by the entities of an individual OVAL State. This type provides uniformity to each state entity by including the attributes found in the EntityStateSimpleBaseType. This specific type describes simple version data.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="oval:EntitySimpleBaseType">
@@ -578,7 +578,7 @@
     </xsd:complexType>
     <xsd:complexType name="FilterRecordType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionRecordType defines an entity that consists of a number of uniquely named fields. This structure is used for representing a record from a database query and other similar structures where multiple related fields must be represented at once. Note that for all entities of this type, the only allowed datatype is 'record' and the only allowed operation is 'equals'. During analysis of a system characteristics item, each field is analyzed and then the overall result for elements of this type is computed by logically anding the results for each field and then applying the entity_check attribute.</xsd:documentation>
+            <xsd:documentation>The objectRecordType defines an entity that consists of a number of uniquely named fields. This structure is used for representing a record from a database query and other similar structures where multiple related fields must be represented at once. Note that for all entities of this type, the only allowed datatype is 'record' and the only allowed operation is 'equals'. During analysis of a system characteristics item, each field is analyzed and then the overall result for elements of this type is computed by logically anding the results for each field and then applying the entity_check attribute.</xsd:documentation>
             <xsd:documentation>Note the datatype attribute must be set to 'record'.</xsd:documentation>
             <!-- 
                 NOTE: The restriction that the only allowed datatype is 'record' is enforced by scheamtron rules placed on each entity that uses this type. 
@@ -599,7 +599,7 @@
     </xsd:complexType> 
     <xsd:complexType name="FilterFieldType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionFieldType defines an element with simple content that represents a named field in a record that may contain any number of named fields. The CollectionFieldType is much like all other entities with one significant difference, the CollectionFieldType has a name attribute</xsd:documentation>
+            <xsd:documentation>The objectFieldType defines an element with simple content that represents a named field in a record that may contain any number of named fields. The objectFieldType is much like all other entities with one significant difference, the objectFieldType has a name attribute</xsd:documentation>
             <xsd:documentation>The required name attribute specifies a unique name for the field. Field names are lowercase and must be unique within a given parent record element. When analyzing system characteristics an error should be reported for the result of a field that is present in the OVAL State, but not found in the system characteristics Item.</xsd:documentation>
             <xsd:documentation>The optional entity_check attribute specifies how to handle multiple record fields with the same name in the OVAL Systems Characteristics file. For example, while collecting group information where one field is the represents the users that are members of the group.  It is very likely that there will be multiple fields with a name of 'user' associated with the group.  If the OVAL State defines the value of the field with name equal 'user' to equal 'Fred', then the entity_check attribute determines if all values for field entities must be equal to 'Fred', or at least one value must be equal to 'Fred', etc.</xsd:documentation>
             <xsd:documentation>Note that when the mask attribute is set to 'true' on a field's parent element the field must be masked regardless of the field's mask attribute value.</xsd:documentation>

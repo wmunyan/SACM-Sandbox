@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oval_objects xmlns="http://oval.cisecurity.org/XMLSchema/oval-collections-6" 
+    xmlns:oval="http://oval.cisecurity.org/XMLSchema/oval-common-6" 
+    xmlns:ind="http://oval.cisecurity.org/XMLSchema/oval-collections-6#independent" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://oval.cisecurity.org/XMLSchema/oval-collections-6 oval-collections-schema.xsd">
+    
+    <generator>
+        <oval:product_name>OVAL Object Collections</oval:product_name>
+        <oval:product_version>0.0.1</oval:product_version>
+        <oval:schema_version>6.0.0</oval:schema_version>
+        <oval:timestamp>2019-06-17T15:12:51.340-04:00</oval:timestamp>
+    </generator>
+    
+    <objects>
+        <!-- Collect the OS family -->
+        <ind:family_object id="oval:org.cisecurity:obj:1" version="1"/>
+        
+        <!-- Collect all environment variables -->
+        <ind:environmentvariable_object id="oval:org.cisecurity:obj:2" version="1">
+            <ind:name operation="pattern match">.*</ind:name>
+        </ind:environmentvariable_object>
+        
+        <!-- Collect both the MD5 and SHA-1 hashes of the /bin/ls file -->
+        <!-- This should yield 2 collected items, 1 for each hash type -->
+        <ind:filehash_object id="oval:org.cisecurity:obj:3" version="1">
+            <ind:filepath>/bin/ls</ind:filepath>
+            <ind:hash_type var_ref="oval:org.cisecurity:var:3"/>
+        </ind:filehash_object>
+    </objects>
+    
+    <variables>
+        <oval:constant_variable id="oval:org.cisecurity:var:3" version="1" datatype="string" comment="MD5 and SHA-1 Hash Types">
+            <oval:value>MD5</oval:value>
+            <oval:value>SHA-1</oval:value>
+        </oval:constant_variable>
+    </variables>
+</oval_objects>

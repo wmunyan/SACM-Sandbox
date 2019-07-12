@@ -13,13 +13,13 @@
     <!-- =============================================================================== -->
     <!-- ===================================  FAMILY  ================================== -->
     <!-- =============================================================================== -->
-    <xsd:element name="family_collection" substitutionGroup="oval-coll:collection">
+    <xsd:element name="family_object" substitutionGroup="oval-coll:object">
         <xsd:annotation>
-            <xsd:documentation>The family_collection element is used by a family test to define those objects to evaluate based on a specified state. There is actually only one object relating to family and this is the system as a whole. Therefore, there are no child entities defined. Any OVAL Test written to check the family will reference the same family_collection which is basically an empty object element.</xsd:documentation>
+            <xsd:documentation>The family_object element is used by a family test to define those objects to evaluate based on a specified state. There is actually only one object relating to family and this is the system as a whole. Therefore, there are no child entities defined. Any OVAL Test written to check the family will reference the same family_object which is basically an empty object element.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexType>
             <xsd:complexContent>
-                <xsd:extension base="oval-coll:CollectionType"/>
+                <xsd:extension base="oval-coll:ObjectType"/>
             </xsd:complexContent>
         </xsd:complexType>
     </xsd:element>
@@ -45,46 +45,46 @@
     <!-- =============================================================================== -->
     <!-- =================================  FILE HASH  ================================= -->
     <!-- =============================================================================== -->
-    <xsd:element name="filehash_collection" substitutionGroup="oval-coll:collection">
+    <xsd:element name="filehash_object" substitutionGroup="oval-coll:object">
         <xsd:annotation>
-            <xsd:documentation>The filehash_collection element is used by a file hash test to define the specific file(s) to be evaluated. The filehash_collection will only collect regular files on UNIX systems and FILE_TYPE_DISK files on Windows systems. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
-            <xsd:documentation>A filehash_collection defines the path and filename of the file(s). In addition, a number of behaviors may be provided that help guide the collection of objects. Please refer to the FileBehaviors complex type for more information about specific behaviors.</xsd:documentation>
+            <xsd:documentation>The filehash_object element is used by a file hash test to define the specific file(s) to be evaluated. The filehash_object will only collect regular files on UNIX systems and FILE_TYPE_DISK files on Windows systems. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+            <xsd:documentation>A filehash_object defines the path and filename of the file(s). In addition, a number of behaviors may be provided that help guide the object of objects. Please refer to the FileBehaviors complex type for more information about specific behaviors.</xsd:documentation>
             <xsd:documentation>The set of files to be evaluated may be identified with either a complete filepath or a path and filename. Only one of these options may be selected.</xsd:documentation>
             <xsd:documentation>It is important to note that the 'max_depth' and 'recurse_direction' attributes of the 'behaviors' element do not apply to the 'filepath' element, only to the 'path' and 'filename' elements. This is because the 'filepath' element represents an absolute path to a particular file and it is not possible to recurse over a file.</xsd:documentation>
             <xsd:appinfo>
-                <sch:pattern id="ind-def_filehash_collection_verify_filter_state">
-                    <sch:rule context="ind-def:filehash_collection//oval-def:filter">
-                        <sch:let name="parent_collection" value="ancestor::ind-def:filehash_collection"/>
-                        <sch:let name="parent_collection_id" value="$parent_collection/@id"/>
+                <sch:pattern id="ind-def_filehash_object_verify_filter_state">
+                    <sch:rule context="ind-def:filehash_object//oval-def:filter">
+                        <sch:let name="parent_object" value="ancestor::ind-def:filehash_object"/>
+                        <sch:let name="parent_object_id" value="$parent_object/@id"/>
                         <sch:let name="state_ref" value="."/>
                         <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id = $state_ref]"/>
                         <sch:let name="state_name" value="local-name($reffed_state)"/>
                         <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
-                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'filehash58_state'))">State referenced in filter for <sch:value-of select="name($parent_collection)"/> '<sch:value-of select="$parent_collection_id"/>' is of the wrong type. </sch:assert>
+                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'filehash58_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
                     </sch:rule>
                 </sch:pattern>
             </xsd:appinfo>
         </xsd:annotation>
         <xsd:complexType>
             <xsd:complexContent>
-                <xsd:extension base="oval-coll:CollectionType">
+                <xsd:extension base="oval-coll:ObjectType">
                     <xsd:sequence>
                         <xsd:choice>
                             <xsd:element ref="oval-coll:set"/>
                             <xsd:sequence>
                                 <xsd:element name="behaviors" type="ind-coll:FileBehaviors" minOccurs="0" maxOccurs="1"/>
                                 <xsd:choice>
-                                    <xsd:element name="filepath" type="oval-coll:CollectionStringType">
+                                    <xsd:element name="filepath" type="oval-coll:objectStringType">
                                         <xsd:annotation>
                                             <xsd:documentation>The filepath element specifies the absolute path for a file on the machine. A directory cannot be specified as a filepath.</xsd:documentation>
                                             <xsd:appinfo>
                                                 <sch:pattern id="ind-def_hash58objfilepath">
-                                                    <sch:rule context="ind-def:filehash_collection/ind-def:filepath">
+                                                    <sch:rule context="ind-def:filehash_object/ind-def:filepath">
                                                         <sch:assert test="not(preceding-sibling::ind-def:behaviors[@max_depth or @recurse_direction])"><sch:value-of select="../@id"/> - the max_depth and recurse_direction behaviors are not allowed with a filepath entity</sch:assert>
                                                     </sch:rule>
                                                 </sch:pattern>
                                                 <sch:pattern id="ind-def_hash58objfilepath2">
-                                                    <sch:rule context="ind-def:filehash_collection/ind-def:filepath[not(@operation = 'equals' or not(@operation))]">
+                                                    <sch:rule context="ind-def:filehash_object/ind-def:filepath[not(@operation = 'equals' or not(@operation))]">
                                                         <sch:assert test="not(preceding-sibling::ind-def:behaviors[@recurse_file_system = 'defined'])"><sch:value-of select="../@id"/> - the recurse_file_system behavior MUST not be set to 'defined' when a pattern match is used with a filepath entity.</sch:assert>
                                                     </sch:rule>
                                                 </sch:pattern>
@@ -92,12 +92,12 @@
                                         </xsd:annotation>
                                     </xsd:element>
                                     <xsd:sequence>
-                                        <xsd:element name="path" type="oval-coll:CollectionStringType">
+                                        <xsd:element name="path" type="oval-coll:objectStringType">
                                             <xsd:annotation>
                                                 <xsd:documentation>The path entity specifies the directory component of the absolute path to a file on the machine.</xsd:documentation>
                                                 <xsd:appinfo>
                                                     <sch:pattern id="ind-def_hash58objpath">
-                                                        <sch:rule context="ind-def:filehash_collection/ind-def:path[not(@operation = 'equals' or not(@operation))]">
+                                                        <sch:rule context="ind-def:filehash_object/ind-def:path[not(@operation = 'equals' or not(@operation))]">
                                                             <sch:assert test="not(preceding-sibling::ind-def:behaviors[@recurse_file_system = 'defined'])"><sch:value-of select="../@id"/> - the recurse_file_system behavior MUST not be set to 'defined' when a pattern match is used with a path entity.</sch:assert>
                                                             <sch:assert test="not(preceding-sibling::ind-def:behaviors[@max_depth])"><sch:value-of select="../@id"/> - the max_depth behavior MUST not be used when a pattern match is used with a path entity.</sch:assert>
                                                             <sch:assert test="not(preceding-sibling::ind-def:behaviors[@recurse_direction])"><sch:value-of select="../@id"/> - the recurse_direction behavior MUST not be used when a pattern match is used with a path entity.</sch:assert>
@@ -107,12 +107,12 @@
                                                 </xsd:appinfo>
                                             </xsd:annotation>
                                         </xsd:element>
-                                        <xsd:element name="filename" type="oval-coll:CollectionStringType">
+                                        <xsd:element name="filename" type="oval-coll:objectStringType">
                                             <xsd:annotation>
                                                 <xsd:documentation>The filename entity specifies the name of the file.</xsd:documentation>
                                                 <xsd:appinfo>
                                                     <sch:pattern id="ind-def_hash58objfilename">
-                                                        <sch:rule context="ind-def:filehash_collection/ind-def:filename">
+                                                        <sch:rule context="ind-def:filehash_object/ind-def:filename">
                                                             <sch:assert test="(@var_ref and . = '') or not(. = '') or (. = '' and @operation = 'pattern match')"><sch:value-of select="../@id"/> - filename entity cannot be empty unless the xsi:nil attribute is set to true or a var_ref is used</sch:assert>
                                                         </sch:rule>
                                                     </sch:pattern>
@@ -121,7 +121,7 @@
                                         </xsd:element>
                                     </xsd:sequence>
                                 </xsd:choice>
-                                <xsd:element name="hash_type" type="ind-coll:CollectionHashTypeType">
+                                <xsd:element name="hash_type" type="ind-coll:objectHashTypeType">
                                     <xsd:annotation>
                                         <xsd:documentation>The hash_type entity specifies the hash algorithm to use when collecting the hash for each of the specifed files.</xsd:documentation>
                                     </xsd:annotation>
@@ -181,17 +181,17 @@
     <!-- =============================================================================== -->
     <!-- ===========================  ENVIRONMENT VARIABLE  ============================ -->
     <!-- =============================================================================== -->
-    <xsd:element name="environmentvariable_collection" substitutionGroup="oval-coll:collection">
+    <xsd:element name="environmentvariable_object" substitutionGroup="oval-coll:object">
         <xsd:annotation>
-            <xsd:documentation>The environmentvariable_collection element is used by an environment variable test to define the specific environment variable(s) to be evaluated. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+            <xsd:documentation>The environmentvariable_object element is used by an environment variable test to define the specific environment variable(s) to be evaluated. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexType>
             <xsd:complexContent>
-                <xsd:extension base="oval-coll:CollectionType">
+                <xsd:extension base="oval-coll:ObjectType">
                     <xsd:sequence>
                         <xsd:choice>
                             <xsd:element ref="oval-coll:set"/>
-                            <xsd:element name="name" type="oval-coll:CollectionStringType">
+                            <xsd:element name="name" type="oval-coll:objectStringType">
                                 <xsd:annotation>
                                     <xsd:documentation>This element describes the name of an environment variable.</xsd:documentation>
                                 </xsd:annotation>
@@ -229,36 +229,36 @@
     <!-- =============================================================================== -->
     <!-- ================== PROCESS-SPECIFIC ENVIRONMENT VARIABLE   ==================== -->
     <!-- =============================================================================== -->
-    <xsd:element name="processenvironment_collection" substitutionGroup="oval-coll:collection">
+    <xsd:element name="processenvironment_object" substitutionGroup="oval-coll:object">
         <xsd:annotation>
-            <xsd:documentation>The processenvironment_collection element is used by an environmentvariable58_test to define the specific environment variable(s) and process IDs to be evaluated. If a tool is unable to collect the environment variables of another process, an error must be reported. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+            <xsd:documentation>The processenvironment_object element is used by an environmentvariable58_test to define the specific environment variable(s) and process IDs to be evaluated. If a tool is unable to collect the environment variables of another process, an error must be reported. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
             <xsd:appinfo>
-                <sch:pattern id="ind-def_processenvironment_collection_verify_filter_state">
-                    <sch:rule context="ind-def:processenvironment_collection//oval-def:filter">
-                        <sch:let name="parent_collection" value="ancestor::ind-def:processenvironment_collection"/>
-                        <sch:let name="parent_collection_id" value="$parent_collection/@id"/>
+                <sch:pattern id="ind-def_processenvironment_object_verify_filter_state">
+                    <sch:rule context="ind-def:processenvironment_object//oval-def:filter">
+                        <sch:let name="parent_object" value="ancestor::ind-def:processenvironment_object"/>
+                        <sch:let name="parent_object_id" value="$parent_object/@id"/>
                         <sch:let name="state_ref" value="."/>
                         <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id = $state_ref]"/>
                         <sch:let name="state_name" value="local-name($reffed_state)"/>
                         <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
-                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'environmentvariable58_state'))">State referenced in filter for <sch:value-of select="name($parent_collection)"/> '<sch:value-of select="$parent_collection_id"/>' is of the wrong type. </sch:assert>
+                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'environmentvariable58_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
                     </sch:rule>
                 </sch:pattern>
             </xsd:appinfo>
         </xsd:annotation>
         <xsd:complexType>
             <xsd:complexContent>
-                <xsd:extension base="oval-coll:CollectionType">
+                <xsd:extension base="oval-coll:ObjectType">
                     <xsd:sequence>
                         <xsd:choice>
                             <xsd:element ref="oval-coll:set"/>
                             <xsd:sequence>
-                                <xsd:element name="pid" type="oval-coll:CollectionIntType" nillable="true">
+                                <xsd:element name="pid" type="oval-coll:objectIntType" nillable="true">
                                     <xsd:annotation>
                                         <xsd:documentation>The process ID of the process from which the environment variable should be retrieved. If the xsi:nil attribute is set to true, the process ID shall be the tool's running process; for scanners with no process ID (e.g., an agentless network scanner), no corresponding items will exist.</xsd:documentation>
                                     </xsd:annotation>
                                 </xsd:element>
-                                <xsd:element name="name" type="oval-coll:CollectionStringType">
+                                <xsd:element name="name" type="oval-coll:objectStringType">
                                     <xsd:annotation>
                                         <xsd:documentation>This element describes the name of an environment variable.</xsd:documentation>
                                     </xsd:annotation>
@@ -303,29 +303,29 @@
     <!-- =============================================================================== -->
     <!-- ===================================  LDAP  ==================================== -->
     <!-- =============================================================================== -->
-    <xsd:element name="ldap_collection" substitutionGroup="oval-coll:collection">
+    <xsd:element name="ldap_object" substitutionGroup="oval-coll:object">
         <xsd:annotation>
-            <xsd:documentation>The ldap_collection element is used by an LDAP test to define the objects to be evaluated based on a specified state. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+            <xsd:documentation>The ldap_object element is used by an LDAP test to define the objects to be evaluated based on a specified state. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexType>
             <xsd:complexContent>
-                <xsd:extension base="oval-coll:CollectionType">
+                <xsd:extension base="oval-coll:ObjectType">
                     <xsd:sequence>
                         <xsd:choice>
                             <xsd:element ref="oval-coll:set"/>
                             <xsd:sequence>
                                 <xsd:element name="behaviors" type="ind-coll:LdapBehaviors" minOccurs="0" maxOccurs="1"/>
-                                <xsd:element name="suffix" type="oval-coll:CollectionStringType">
+                                <xsd:element name="suffix" type="oval-coll:objectStringType">
                                     <xsd:annotation>
                                         <xsd:documentation>Each object in an LDAP directory exists under a certain suffix (also known as a naming context). A suffix is defined as a single object in the Directory Information Tree (DIT) with every object in the tree subordinate to it.</xsd:documentation>
                                     </xsd:annotation>
                                 </xsd:element>
-                                <xsd:element name="relative_dn" type="oval-coll:CollectionStringType" nillable="true">
+                                <xsd:element name="relative_dn" type="oval-coll:objectStringType" nillable="true">
                                     <xsd:annotation>
                                         <xsd:documentation>The relative_dn field is used to uniquely identify an object inside the specified suffix. It contains all of the parts of the object's distinguished name except those outlined by the suffix. If the xsi:nil attribute is set to true, then the object being specified is the higher level suffix. In this case, the relative_dn element should not be collected or used in analysis. Setting xsi:nil equal to true is different than using a .* pattern match, which says to collect every relative distinguished name under a given suffix.</xsd:documentation>
                                     </xsd:annotation>
                                 </xsd:element>
-                                <xsd:element name="attribute" type="oval-coll:CollectionStringType" nillable="true">
+                                <xsd:element name="attribute" type="oval-coll:objectStringType" nillable="true">
                                     <xsd:annotation>
                                         <xsd:documentation>Specifies a named value contained by the object. If the xsi:nil attribute is set to true, the attribute element should not be collected or used in analysis. Setting xsi:nil equal to true is different than using a .* pattern match, which says to collect every attribute under a given relative distinguished name.</xsd:documentation>
                                     </xsd:annotation>
@@ -384,73 +384,73 @@
     <!-- =============================================================================== -->
     <!-- =================================  SQL QUERY  ================================= -->
     <!-- =============================================================================== -->
-    <xsd:element name="sql_collection" substitutionGroup="oval-coll:collection">
+    <xsd:element name="sql_object" substitutionGroup="oval-coll:object">
         <xsd:annotation>
-            <xsd:documentation>The sql_collection element is used by a sql test to define the specific database and query to be evaluated. Connection information is supplied allowing the tool to connect to the desired database and a query is supplied to call out the desired setting. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+            <xsd:documentation>The sql_object element is used by a sql test to define the specific database and query to be evaluated. Connection information is supplied allowing the tool to connect to the desired database and a query is supplied to call out the desired setting. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
             <xsd:appinfo>
-                <sch:pattern id="ind-def_sql_collection_verify_filter_state">
-                    <sch:rule context="ind-def:sql_collection//oval-def:filter">
-                        <sch:let name="parent_collection" value="ancestor::ind-def:sql_collection"/>
-                        <sch:let name="parent_collection_id" value="$parent_collection/@id"/>
+                <sch:pattern id="ind-def_sql_object_verify_filter_state">
+                    <sch:rule context="ind-def:sql_object//oval-def:filter">
+                        <sch:let name="parent_object" value="ancestor::ind-def:sql_object"/>
+                        <sch:let name="parent_object_id" value="$parent_object/@id"/>
                         <sch:let name="state_ref" value="."/>
                         <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id = $state_ref]"/>
                         <sch:let name="state_name" value="local-name($reffed_state)"/>
                         <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
-                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'sql57_state'))">State referenced in filter for <sch:value-of select="name($parent_collection)"/> '<sch:value-of select="$parent_collection_id"/>' is of the wrong type. </sch:assert>
+                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'sql57_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
                     </sch:rule>
                 </sch:pattern>
             </xsd:appinfo>
         </xsd:annotation>
         <xsd:complexType>
             <xsd:complexContent>
-                <xsd:extension base="oval-coll:CollectionType">
+                <xsd:extension base="oval-coll:ObjectType">
                     <xsd:sequence>
                         <xsd:choice>
                             <xsd:element ref="oval-coll:set"/>
                             <xsd:sequence>
-                                <xsd:element name="engine" type="ind-coll:CollectionEngineType">
+                                <xsd:element name="engine" type="ind-coll:objectEngineType">
                                     <xsd:annotation>
                                         <xsd:documentation>The engine entity defines the specific database engine to use. Any tool looking to collect information about this object will need to know the engine in order to use the appropriate drivers to establish a connection.</xsd:documentation>
                                         <xsd:appinfo>
-                                            <sch:pattern id="ind-def_sql_collection_dengine">
-                                                <sch:rule context="ind-def:sql_collection/ind-def:engine">
-                                                    <sch:assert test="not(@operation) or @operation = 'equals'"><sch:value-of select="../@id"/> - operation attribute for the engine entity of an sql_collection should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
+                                            <sch:pattern id="ind-def_sql_object_dengine">
+                                                <sch:rule context="ind-def:sql_object/ind-def:engine">
+                                                    <sch:assert test="not(@operation) or @operation = 'equals'"><sch:value-of select="../@id"/> - operation attribute for the engine entity of an sql_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
                                                 </sch:rule>
                                             </sch:pattern>
                                         </xsd:appinfo>
                                     </xsd:annotation>
                                 </xsd:element>
-                                <xsd:element name="version" type="oval-coll:CollectionStringType">
+                                <xsd:element name="version" type="oval-coll:objectStringType">
                                     <xsd:annotation>
                                         <xsd:documentation>The version entity defines the specific version of the database engine to use. This is also important in determining the correct driver to use for establishing a connection.</xsd:documentation>
                                         <xsd:appinfo>
-                                            <sch:pattern id="ind-def_sql_collection_version">
-                                                <sch:rule context="ind-def:sql_collection/ind-def:version">
-                                                    <sch:assert test="not(@operation) or @operation = 'equals'"><sch:value-of select="../@id"/> - operation attribute for the version entity of an sql_collection should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
+                                            <sch:pattern id="ind-def_sql_object_version">
+                                                <sch:rule context="ind-def:sql_object/ind-def:version">
+                                                    <sch:assert test="not(@operation) or @operation = 'equals'"><sch:value-of select="../@id"/> - operation attribute for the version entity of an sql_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
                                                 </sch:rule>
                                             </sch:pattern>
                                         </xsd:appinfo>
                                     </xsd:annotation>
                                 </xsd:element>
-                                <xsd:element name="connection_string" type="oval-coll:CollectionStringType">
+                                <xsd:element name="connection_string" type="oval-coll:objectStringType">
                                     <xsd:annotation>
                                         <xsd:documentation>The connection_string entity defines specific connection parameters to be used in connecting to the database. This will help a tool connect to the correct database.</xsd:documentation>
                                         <xsd:appinfo>
-                                            <sch:pattern id="ind-def_sql_collection_connection_string">
-                                                <sch:rule context="ind-def:sql_collection/ind-def:connection_string">
-                                                    <sch:assert test="not(@operation) or @operation = 'equals'"><sch:value-of select="../@id"/> - operation attribute for the connection_string entity of an sql_collection should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
+                                            <sch:pattern id="ind-def_sql_object_connection_string">
+                                                <sch:rule context="ind-def:sql_object/ind-def:connection_string">
+                                                    <sch:assert test="not(@operation) or @operation = 'equals'"><sch:value-of select="../@id"/> - operation attribute for the connection_string entity of an sql_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
                                                 </sch:rule>
                                             </sch:pattern>
                                         </xsd:appinfo>
                                     </xsd:annotation>
                                 </xsd:element>
-                                <xsd:element name="sql" type="oval-coll:CollectionStringType">
+                                <xsd:element name="sql" type="oval-coll:objectStringType">
                                     <xsd:annotation>
                                         <xsd:documentation>The sql entity defines a query used to identify the object(s) to test against. Any valid SQL query is usable with one exception, all fields must be named in the SELECT portion of the query. For example, SELECT name, number FROM ... is valid. However, SELECT * FROM ... is not valid. This is because the record element in the state and item require a unique field name value to ensure that any query results can be evaluated consistently.</xsd:documentation>
                                         <xsd:appinfo>
-                                            <sch:pattern id="ind-def_sql_collection_sql">
-                                                <sch:rule context="ind-def:sql_collection/ind-def:sql">
-                                                    <sch:assert test="not(@operation) or @operation = 'equals'"><sch:value-of select="../@id"/> - operation attribute for the sql entity of an sql_collection should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
+                                            <sch:pattern id="ind-def_sql_object_sql">
+                                                <sch:rule context="ind-def:sql_object/ind-def:sql">
+                                                    <sch:assert test="not(@operation) or @operation = 'equals'"><sch:value-of select="../@id"/> - operation attribute for the sql entity of an sql_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
                                                 </sch:rule>
                                             </sch:pattern>
                                         </xsd:appinfo>
@@ -517,45 +517,45 @@
     <!-- =============================================================================== -->
     <!-- =============================  TEXT FILE CONTENT  ============================= -->
     <!-- =============================================================================== -->
-    <xsd:element name="textfilecontent_collection" substitutionGroup="oval-coll:collection">
+    <xsd:element name="textfilecontent_object" substitutionGroup="oval-coll:object">
         <xsd:annotation>
-            <xsd:documentation>The textfilecontent_collection element is used by a textfilecontent_test to define the specific block(s) of text of a file(s) to be evaluated. The textfilecontent_collection will only collect regular files on UNIX systems and FILE_TYPE_DISK files on Windows systems. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+            <xsd:documentation>The textfilecontent_object element is used by a textfilecontent_test to define the specific block(s) of text of a file(s) to be evaluated. The textfilecontent_object will only collect regular files on UNIX systems and FILE_TYPE_DISK files on Windows systems. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
             <xsd:documentation>The set of files to be evaluated may be identified with either a complete filepath or a path and filename. Only one of these options may be selected.</xsd:documentation>
             <xsd:documentation>It is important to note that the 'max_depth' and 'recurse_direction' attributes of the 'behaviors' element do not apply to the 'filepath' element, only to the 'path' and 'filename' elements. This is because the 'filepath' element represents an absolute path to a particular file and it is not possible to recurse over a file.</xsd:documentation>
             <xsd:appinfo>
-                <sch:pattern id="ind-def_textfilecontent_collection_verify_filter_state">
-                    <sch:rule context="ind-def:textfilecontent_collection//oval-def:filter">
-                        <sch:let name="parent_collection" value="ancestor::ind-def:textfilecontent_collection"/>
-                        <sch:let name="parent_collection_id" value="$parent_collection/@id"/>
+                <sch:pattern id="ind-def_textfilecontent_object_verify_filter_state">
+                    <sch:rule context="ind-def:textfilecontent_object//oval-def:filter">
+                        <sch:let name="parent_object" value="ancestor::ind-def:textfilecontent_object"/>
+                        <sch:let name="parent_object_id" value="$parent_object/@id"/>
                         <sch:let name="state_ref" value="."/>
                         <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id = $state_ref]"/>
                         <sch:let name="state_name" value="local-name($reffed_state)"/>
                         <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
-                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'textfilecontent54_state'))">State referenced in filter for <sch:value-of select="name($parent_collection)"/> '<sch:value-of select="$parent_collection_id"/>' is of the wrong type. </sch:assert>
+                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'textfilecontent54_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
                     </sch:rule>
                 </sch:pattern>
             </xsd:appinfo>
         </xsd:annotation>
         <xsd:complexType>
             <xsd:complexContent>
-                <xsd:extension base="oval-coll:CollectionType">
+                <xsd:extension base="oval-coll:ObjectType">
                     <xsd:sequence>
                         <xsd:choice>
                             <xsd:element ref="oval-coll:set"/>
                             <xsd:sequence>
                                 <xsd:element name="behaviors" type="ind-coll:TextfilecontentBehaviors" minOccurs="0" maxOccurs="1"/>
                                 <xsd:choice>
-                                    <xsd:element name="filepath" type="oval-coll:CollectionStringType">
+                                    <xsd:element name="filepath" type="oval-coll:objectStringType">
                                         <xsd:annotation>
                                             <xsd:documentation>The filepath element specifies the absolute path for a file on the machine. A directory cannot be specified as a filepath.</xsd:documentation>
                                             <xsd:appinfo>
                                                 <sch:pattern id="ind-def_txt54objfilepath">
-                                                    <sch:rule context="ind-def:textfilecontent_collection/ind-def:filepath">
+                                                    <sch:rule context="ind-def:textfilecontent_object/ind-def:filepath">
                                                         <sch:assert test="not(preceding-sibling::ind-def:behaviors[@max_depth or @recurse_direction])"><sch:value-of select="../@id"/> - the max_depth and recurse_direction behaviors are not allowed with a filepath entity</sch:assert>
                                                     </sch:rule>
                                                 </sch:pattern>
                                                 <sch:pattern id="ind-def_txt54objfilepath2">
-                                                    <sch:rule context="ind-def:textfilecontent_collection/ind-def:filepath[not(@operation = 'equals' or not(@operation))]">
+                                                    <sch:rule context="ind-def:textfilecontent_object/ind-def:filepath[not(@operation = 'equals' or not(@operation))]">
                                                         <sch:assert test="not(preceding-sibling::ind-def:behaviors[@recurse_file_system = 'defined'])"><sch:value-of select="../@id"/> - the recurse_file_system behavior MUST not be set to 'defined' when a pattern match is used with a filepath entity.</sch:assert>
                                                     </sch:rule>
                                                 </sch:pattern>
@@ -563,12 +563,12 @@
                                         </xsd:annotation>
                                     </xsd:element>
                                     <xsd:sequence>
-                                        <xsd:element name="path" type="oval-coll:CollectionStringType">
+                                        <xsd:element name="path" type="oval-coll:objectStringType">
                                             <xsd:annotation>
                                                 <xsd:documentation>The path element specifies the directory component of the absolute path to a file on the machine.</xsd:documentation>
                                                 <xsd:appinfo>
                                                     <sch:pattern id="ind-def_txt54objpath">
-                                                        <sch:rule context="ind-def:textfilecontent_collection/ind-def:path[not(@operation = 'equals' or not(@operation))]">
+                                                        <sch:rule context="ind-def:textfilecontent_object/ind-def:path[not(@operation = 'equals' or not(@operation))]">
                                                             <sch:assert test="not(preceding-sibling::ind-def:behaviors[@recurse_file_system = 'defined'])"><sch:value-of select="../@id"/> - the recurse_file_system behavior MUST not be set to 'defined' when a pattern match is used with a path entity.</sch:assert>
                                                             <sch:assert test="not(preceding-sibling::ind-def:behaviors[@max_depth])"><sch:value-of select="../@id"/> - the max_depth behavior MUST not be used when a pattern match is used with a path entity.</sch:assert>
                                                             <sch:assert test="not(preceding-sibling::ind-def:behaviors[@recurse_direction])"><sch:value-of select="../@id"/> - the recurse_direction behavior MUST not be used when a pattern match is used with a path entity.</sch:assert>
@@ -578,12 +578,12 @@
                                                 </xsd:appinfo>
                                             </xsd:annotation>
                                         </xsd:element>
-                                        <xsd:element name="filename" type="oval-coll:CollectionStringType">
+                                        <xsd:element name="filename" type="oval-coll:objectStringType">
                                             <xsd:annotation>
                                                 <xsd:documentation>The filename entity specifies the name of a file.</xsd:documentation>
                                                 <xsd:appinfo>
                                                     <sch:pattern id="ind-def_txt54objfilename">
-                                                        <sch:rule context="ind-def:textfilecontent_collection/ind-def:filename">
+                                                        <sch:rule context="ind-def:textfilecontent_object/ind-def:filename">
                                                             <sch:assert test="(@var_ref and . = '') or not(. = '') or (. = '' and @operation = 'pattern match')"><sch:value-of select="../@id"/> - filename entity cannot be empty unless the xsi:nil attribute is set to true or a var_ref is used</sch:assert>
                                                         </sch:rule>
                                                     </sch:pattern>
@@ -592,23 +592,23 @@
                                         </xsd:element>
                                     </xsd:sequence>
                                 </xsd:choice>
-                                <xsd:element name="pattern" type="oval-coll:CollectionStringType">
+                                <xsd:element name="pattern" type="oval-coll:objectStringType">
                                     <xsd:annotation>
                                         <xsd:documentation>The pattern entity defines a chunk of text in a file and is represented using a regular expression. A subexpression (using parentheses) can call out a piece of the text block to test. For example, the pattern abc(.*)xyz would look for a block of text in the file that starts with abc and ends with xyz, with the subexpression being all the characters that exist in between. The value of the subexpression can then be tested using the subexpression entity of a textfilecontent54_state. Note that if the pattern, starting at the same point in the file, matches more than one block of text, then it matches the longest. For example, given a file with abcdefxyzxyzabc, then the pattern abc(.*)xyz would match the block abcdefxyzxyz. Subexpressions also match the longest possible substrings, subject to the constraint that the whole match be as long as possible, with subexpressions starting earlier in the pattern taking priority over ones starting later.</xsd:documentation>
                                         <xsd:documentation>Note that when using regular expressions, OVAL supports a common subset of the regular expression character classes, operations, expressions and other lexical tokens defined within Perl 5's regular expression specification. For more information on the supported regular expression syntax in OVAL see: http://oval.mitre.org/language/about/re_support_5.6.html.</xsd:documentation>
                                         <xsd:appinfo>
                                             <sch:pattern id="ind-def_txt54objpattern">
-                                                <sch:rule context="ind-def:textfilecontent_collection/ind-def:pattern">
-                                                    <sch:assert test="@operation = 'pattern match'"><sch:value-of select="../@id"/> - operation attribute for the pattern entity of a textfilecontent_collection should be 'pattern match'</sch:assert>
+                                                <sch:rule context="ind-def:textfilecontent_object/ind-def:pattern">
+                                                    <sch:assert test="@operation = 'pattern match'"><sch:value-of select="../@id"/> - operation attribute for the pattern entity of a textfilecontent_object should be 'pattern match'</sch:assert>
                                                 </sch:rule>
                                             </sch:pattern>
                                         </xsd:appinfo>
                                     </xsd:annotation>
                                 </xsd:element>
-                                <xsd:element name="instance" type="oval-coll:CollectionIntType">
+                                <xsd:element name="instance" type="oval-coll:objectIntType">
                                     <xsd:annotation>
                                         <xsd:documentation>The instance entity calls out a specific match of the pattern. It can have both positive and negative values. If the value is positive, the index of the specific match of the pattern is counted from the beginning of the set of matches of that pattern. The first match is given an instance value of 1, the second match is given an instance value of 2, and so on. For positive values, the 'less than' and 'less than or equals' operations imply the the object is operating only on positive values. Frequently, this entity will be defined as 'greater than or equals' 1, which results in the object representing the set of all matches of the pattern.</xsd:documentation>
-                                        <xsd:documentation>Negative values are used to simplify collection of pattern match occurrences counting backwards from the last match. To find the last match, use an instance of -1; the penultimate match is found using an instance value of -2, and so on. For negative values, the 'greater than' and 'greater than or equals' operations imply the object is operating only on negative values. For example, searching for instances greater than or equal to -2 would yield only the last two maches.</xsd:documentation>
+                                        <xsd:documentation>Negative values are used to simplify object of pattern match occurrences counting backwards from the last match. To find the last match, use an instance of -1; the penultimate match is found using an instance value of -2, and so on. For negative values, the 'greater than' and 'greater than or equals' operations imply the object is operating only on negative values. For example, searching for instances greater than or equal to -2 would yield only the last two maches.</xsd:documentation>
                                         <xsd:documentation>Note that the main purpose of the instance item entity is to provide uniqueness for different textfilecontent_items that results from multiple matches of a given pattern against the same file, and they will always have positive values.</xsd:documentation>
                                     </xsd:annotation>
                                 </xsd:element>
@@ -684,41 +684,41 @@
     <!-- =============================================================================== -->
     <!-- ==================================  VARIABLE  ================================= -->
     <!-- =============================================================================== -->
-    <xsd:element name="variable_collection" substitutionGroup="oval-coll:collection">
+    <xsd:element name="variable_object" substitutionGroup="oval-coll:object">
         <xsd:annotation>
             <xsd:documentation/>
             <xsd:appinfo>
-                <sch:pattern id="ind-def_variable_collection_verify_filter_state">
-                    <sch:rule context="ind-def:variable_collection//oval-def:filter">
-                        <sch:let name="parent_collection" value="ancestor::ind-def:variable_collection"/>
-                        <sch:let name="parent_collection_id" value="$parent_collection/@id"/>
+                <sch:pattern id="ind-def_variable_object_verify_filter_state">
+                    <sch:rule context="ind-def:variable_object//oval-def:filter">
+                        <sch:let name="parent_object" value="ancestor::ind-def:variable_object"/>
+                        <sch:let name="parent_object_id" value="$parent_object/@id"/>
                         <sch:let name="state_ref" value="."/>
                         <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id = $state_ref]"/>
                         <sch:let name="state_name" value="local-name($reffed_state)"/>
                         <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
-                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'variable_state'))">State referenced in filter for <sch:value-of select="name($parent_collection)"/> '<sch:value-of select="$parent_collection_id"/>' is of the wrong type. </sch:assert>
+                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'variable_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
                     </sch:rule>
                 </sch:pattern>
             </xsd:appinfo>
         </xsd:annotation>
         <xsd:complexType>
             <xsd:complexContent>
-                <xsd:extension base="oval-coll:CollectionType">
+                <xsd:extension base="oval-coll:ObjectType">
                     <xsd:sequence>
                         <xsd:choice>
                             <xsd:element ref="oval-coll:set"/>
                             <xsd:sequence>
-                                <xsd:element name="var_ref" type="ind-coll:CollectionVariableRefType">
+                                <xsd:element name="var_ref" type="ind-coll:objectVariableRefType">
                                     <xsd:annotation>
                                         <xsd:documentation>The id of the variable you want.</xsd:documentation>
                                         <xsd:appinfo>
                                             <sch:pattern id="ind-def_varobjvar_ref">
-                                                <sch:rule context="ind-def:variable_collection/ind-def:var_ref">
-                                                    <sch:assert test="not(@var_ref)"><sch:value-of select="../@id"/> - var_ref attribute for the var_ref entity of a variable_collection is prohibited.</sch:assert>
+                                                <sch:rule context="ind-def:variable_object/ind-def:var_ref">
+                                                    <sch:assert test="not(@var_ref)"><sch:value-of select="../@id"/> - var_ref attribute for the var_ref entity of a variable_object is prohibited.</sch:assert>
                                                 </sch:rule>
                                             </sch:pattern>
                                             <sch:pattern id="ind-def_varobjvar_ref_exists">
-                                                <sch:rule context="ind-def:variable_collection/ind-def:var_ref">
+                                                <sch:rule context="ind-def:variable_object/ind-def:var_ref">
                                                     <sch:let name="varId" value="."/>
                                                     <sch:assert test="ancestor::oval-def:oval_definitions/oval-def:variables/*[@id = $varId]"><sch:value-of select="../@id"/> - referenced variable <sch:value-of select="."/> not found. The var_ref entity must hold a variable id that exists in the document.</sch:assert>
                                                 </sch:rule>
@@ -774,45 +774,45 @@
     <!-- =============================================================================== -->
     <!-- ============================== XML FILE CONTENT =============================== -->
     <!-- =============================================================================== -->
-    <xsd:element name="xmlfilecontent_collection" substitutionGroup="oval-coll:collection">
+    <xsd:element name="xmlfilecontent_object" substitutionGroup="oval-coll:object">
         <xsd:annotation>
-            <xsd:documentation>The xmlfilecontent_collection element is used by a xml file content test to define the specific piece of an xml file(s) to be evaluated. The xmlfilecontent_collection will only collect regular files on UNIX systems and FILE_TYPE_DISK files on Windows systems. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
+            <xsd:documentation>The xmlfilecontent_object element is used by a xml file content test to define the specific piece of an xml file(s) to be evaluated. The xmlfilecontent_object will only collect regular files on UNIX systems and FILE_TYPE_DISK files on Windows systems. Each object extends the standard ObjectType as defined in the oval-definitions-schema and one should refer to the ObjectType description for more information. The common set element allows complex objects to be created using filters and set logic. Again, please refer to the description of the set element in the oval-definitions-schema.</xsd:documentation>
             <xsd:documentation>The set of files to be evaluated may be identified with either a complete filepath or a path and filename. Only one of these options may be selected.</xsd:documentation>
             <xsd:documentation>It is important to note that the 'max_depth' and 'recurse_direction' attributes of the 'behaviors' element do not apply to the 'filepath' element, only to the 'path' and 'filename' elements. This is because the 'filepath' element represents an absolute path to a particular file and it is not possible to recurse over a file.</xsd:documentation>
             <xsd:appinfo>
-                <sch:pattern id="ind-def_xmlfilecontent_collection_verify_filter_state">
-                    <sch:rule context="ind-def:xmlfilecontent_collection//oval-def:filter">
-                        <sch:let name="parent_collection" value="ancestor::ind-def:xmlfilecontent_collection"/>
-                        <sch:let name="parent_collection_id" value="$parent_collection/@id"/>
+                <sch:pattern id="ind-def_xmlfilecontent_object_verify_filter_state">
+                    <sch:rule context="ind-def:xmlfilecontent_object//oval-def:filter">
+                        <sch:let name="parent_object" value="ancestor::ind-def:xmlfilecontent_object"/>
+                        <sch:let name="parent_object_id" value="$parent_object/@id"/>
                         <sch:let name="state_ref" value="."/>
                         <sch:let name="reffed_state" value="ancestor::oval-def:oval_definitions/oval-def:states/*[@id = $state_ref]"/>
                         <sch:let name="state_name" value="local-name($reffed_state)"/>
                         <sch:let name="state_namespace" value="namespace-uri($reffed_state)"/>
-                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'xmlfilecontent_state'))">State referenced in filter for <sch:value-of select="name($parent_collection)"/> '<sch:value-of select="$parent_collection_id"/>' is of the wrong type. </sch:assert>
+                        <sch:assert test="(($state_namespace = 'http://oval.mitre.org/XMLSchema/oval-definitions-5#independent') and ($state_name = 'xmlfilecontent_state'))">State referenced in filter for <sch:value-of select="name($parent_object)"/> '<sch:value-of select="$parent_object_id"/>' is of the wrong type. </sch:assert>
                     </sch:rule>
                 </sch:pattern>
             </xsd:appinfo>
         </xsd:annotation>
         <xsd:complexType>
             <xsd:complexContent>
-                <xsd:extension base="oval-coll:CollectionType">
+                <xsd:extension base="oval-coll:ObjectType">
                     <xsd:sequence>
                         <xsd:choice>
                             <xsd:element ref="oval-coll:set"/>
                             <xsd:sequence>
                                 <xsd:element name="behaviors" type="ind-coll:FileBehaviors" minOccurs="0" maxOccurs="1"/>
                                 <xsd:choice>
-                                    <xsd:element name="filepath" type="oval-coll:CollectionStringType">
+                                    <xsd:element name="filepath" type="oval-coll:objectStringType">
                                         <xsd:annotation>
                                             <xsd:documentation>The filepath element specifies the absolute path for a file on the machine. A directory cannot be specified as a filepath.</xsd:documentation>
                                             <xsd:appinfo>
                                                 <sch:pattern id="ind-def_xmlobjfilepath">
-                                                    <sch:rule context="ind-def:xmlfilecontent_collection/ind-def:filepath">
+                                                    <sch:rule context="ind-def:xmlfilecontent_object/ind-def:filepath">
                                                         <sch:assert test="not(preceding-sibling::ind-def:behaviors[@max_depth or @recurse_direction])"><sch:value-of select="../@id"/> - the max_depth and recurse_direction behaviors are not allowed with a filepath entity</sch:assert>
                                                     </sch:rule>
                                                 </sch:pattern>
                                                 <sch:pattern id="ind-def_xmlobjfilepath2">
-                                                    <sch:rule context="ind-def:xmlfilecontent_collection/ind-def:filepath[not(@operation = 'equals' or not(@operation))]">
+                                                    <sch:rule context="ind-def:xmlfilecontent_object/ind-def:filepath[not(@operation = 'equals' or not(@operation))]">
                                                         <sch:assert test="not(preceding-sibling::ind-def:behaviors[@recurse_file_system = 'defined'])"><sch:value-of select="../@id"/> - the recurse_file_system behavior MUST not be set to 'defined' when a pattern match is used with a filepath entity.</sch:assert>
                                                     </sch:rule>
                                                 </sch:pattern>
@@ -820,12 +820,12 @@
                                         </xsd:annotation>
                                     </xsd:element>
                                     <xsd:sequence>
-                                        <xsd:element name="path" type="oval-coll:CollectionStringType">
+                                        <xsd:element name="path" type="oval-coll:objectStringType">
                                             <xsd:annotation>
                                                 <xsd:documentation>The path element specifies the directory component of the absolute path to a file on the machine.</xsd:documentation>
                                                 <xsd:appinfo>
                                                     <sch:pattern id="ind-def_xmlobjpath">
-                                                        <sch:rule context="ind-def:xmlfilecontent_collection/ind-def:path[not(@operation = 'equals' or not(@operation))]">
+                                                        <sch:rule context="ind-def:xmlfilecontent_object/ind-def:path[not(@operation = 'equals' or not(@operation))]">
                                                             <sch:assert test="not(preceding-sibling::ind-def:behaviors[@recurse_file_system = 'defined'])"><sch:value-of select="../@id"/> - the recurse_file_system behavior MUST not be set to 'defined' when a pattern match is used with a path entity.</sch:assert>
                                                             <sch:assert test="not(preceding-sibling::ind-def:behaviors[@max_depth])"><sch:value-of select="../@id"/> - the max_depth behavior MUST not be used when a pattern match is used with a path entity.</sch:assert>
                                                             <sch:assert test="not(preceding-sibling::ind-def:behaviors[@recurse_direction])"><sch:value-of select="../@id"/> - the recurse_direction behavior MUST not be used when a pattern match is used with a path entity.</sch:assert>
@@ -835,12 +835,12 @@
                                                 </xsd:appinfo>
                                             </xsd:annotation>
                                         </xsd:element>
-                                        <xsd:element name="filename" type="oval-coll:CollectionStringType">
+                                        <xsd:element name="filename" type="oval-coll:objectStringType">
                                             <xsd:annotation>
                                                 <xsd:documentation>The filename element specifies the name of the file.</xsd:documentation>
                                                 <xsd:appinfo>
                                                     <sch:pattern id="ind-def_xmlobjfilename">
-                                                        <sch:rule context="ind-def:xmlfilecontent_collection/ind-def:filename">
+                                                        <sch:rule context="ind-def:xmlfilecontent_object/ind-def:filename">
                                                             <sch:assert test="(@var_ref and . = '') or not(. = '') or (. = '' and @operation = 'pattern match')"><sch:value-of select="../@id"/> - filename entity cannot be empty unless the xsi:nil attribute is set to true or a var_ref is used</sch:assert>
                                                         </sch:rule>
                                                     </sch:pattern>
@@ -849,13 +849,13 @@
                                         </xsd:element>
                                     </xsd:sequence>
                                 </xsd:choice>
-                                <xsd:element name="xpath" type="oval-coll:CollectionStringType">
+                                <xsd:element name="xpath" type="oval-coll:objectStringType">
                                     <xsd:annotation>
                                         <xsd:documentation>Specifies an XPath 1.0 expression to evaluate against the XML file specified by the filename entity. This XPath 1.0 expression must evaluate to a list of zero or more text values which will be accessible in OVAL via instances of the value_of entity. Any results from evaluating the XPath 1.0 expression other than a list of text strings (e.g., a nodes set) is considered an error. The intention is that the text values be drawn from instances of a single, uniquely named element or attribute. However, an OVAL interpreter is not required to verify this, so the author should define the XPath expression carefully. Note that "equals" is the only valid operator for the xpath entity.</xsd:documentation>
                                         <xsd:appinfo>
                                             <sch:pattern id="ind-def_xmlobjxpath">
-                                                <sch:rule context="ind-def:xmlfilecontent_collection/ind-def:xpath">
-                                                    <sch:assert test="not(@operation) or @operation = 'equals'"><sch:value-of select="../@id"/> - operation attribute for the xpath entity of a xmlfilecontent_collection should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
+                                                <sch:rule context="ind-def:xmlfilecontent_object/ind-def:xpath">
+                                                    <sch:assert test="not(@operation) or @operation = 'equals'"><sch:value-of select="../@id"/> - operation attribute for the xpath entity of a xmlfilecontent_object should be 'equals', note that this overrules the general operation attribute validation (i.e. follow this one)</sch:assert>
                                                 </sch:rule>
                                             </sch:pattern>
                                         </xsd:appinfo>
@@ -918,7 +918,7 @@
     <!-- =============================================================================== -->
     <xsd:complexType name="LdapBehaviors">
         <xsd:annotation>
-            <xsd:documentation>The LdapBehaviors complex type defines a number of behaviors that allow a more detailed definition of the ldap_collection being specified.</xsd:documentation>
+            <xsd:documentation>The LdapBehaviors complex type defines a number of behaviors that allow a more detailed definition of the ldap_object being specified.</xsd:documentation>
         </xsd:annotation>
         <xsd:attribute name="scope" use="optional" default="BASE">
             <xsd:annotation>
@@ -979,7 +979,7 @@
         </xsd:attribute>
         <xsd:attribute name="recurse_file_system" use="optional" default="all">
             <xsd:annotation>
-                <xsd:documentation>'recurse_file_system' defines the file system limitation of any searching and applies to all operations as specified on the path or filepath entity. The value of 'local' limits the search scope to local file systems (as opposed to file systems mounted from an external system). The value of 'defined' keeps any recursion within the file system that the file_collection (path+filename or filepath) has specified. For example, on Windows, if the path specified was "C:\", you would search only the C: drive, not other filesystems mounted to descendant paths. Similarly, on UNIX, if the path specified was "/", you would search only the filesystem mounted there, not other filesystems mounted to descendant paths. The value of 'defined' only applies when an equality operation is used for searching because the path or filepath entity must explicitly define a file system. The default value is 'all' meaning to search all available file systems for data collection.</xsd:documentation>
+                <xsd:documentation>'recurse_file_system' defines the file system limitation of any searching and applies to all operations as specified on the path or filepath entity. The value of 'local' limits the search scope to local file systems (as opposed to file systems mounted from an external system). The value of 'defined' keeps any recursion within the file system that the file_object (path+filename or filepath) has specified. For example, on Windows, if the path specified was "C:\", you would search only the C: drive, not other filesystems mounted to descendant paths. Similarly, on UNIX, if the path specified was "/", you would search only the filesystem mounted there, not other filesystems mounted to descendant paths. The value of 'defined' only applies when an equality operation is used for searching because the path or filepath entity must explicitly define a file system. The default value is 'all' meaning to search all available file systems for data object.</xsd:documentation>
                 <xsd:documentation>Note that in most cases it is recommended that the value of 'local' be used to ensure that file system searching is limited to only the local file systems. Searching 'all' file systems may have performance implications.</xsd:documentation>
             </xsd:annotation>
             <xsd:simpleType>
@@ -1005,7 +1005,7 @@
     </xsd:complexType>
     <xsd:complexType name="TextfilecontentBehaviors">
         <xsd:annotation>
-            <xsd:documentation>The TextfilecontentBehaviors complex type defines a number of behaviors that allow a more detailed definition of the textfilecontent_collection being specified. Note that using these behaviors may result in some unique results. For example, a double negative type condition might be created where an object entity says include everything except a specific item, but a behavior is used that might then add that item back in.</xsd:documentation>
+            <xsd:documentation>The TextfilecontentBehaviors complex type defines a number of behaviors that allow a more detailed definition of the textfilecontent_object being specified. Note that using these behaviors may result in some unique results. For example, a double negative type condition might be created where an object entity says include everything except a specific item, but a behavior is used that might then add that item back in.</xsd:documentation>
             <xsd:documentation>It is important to note that the 'max_depth' and 'recurse_direction' attributes of the 'behaviors' element do not apply to the 'filepath' element, only to the 'path' and 'filename' elements. This is because the 'filepath' element represents an absolute path to a particular file and it is not possible to recurse over a file.</xsd:documentation>
             <xsd:documentation>The TextfilecontentBehaviors extend the ind-def:FileBehaviors and therefore include the behaviors defined by that type.</xsd:documentation>
         </xsd:annotation>
@@ -1033,12 +1033,12 @@
     <!-- =============================================================================== -->
     <!-- =================================  DATATYPES  ================================= -->
     <!-- =============================================================================== -->
-    <xsd:complexType name="CollectionEngineType">
+    <xsd:complexType name="objectEngineType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionEngineType complex type defines a string entity value that is restricted to a set of enumerations. Each valid enumeration is a valid database engine. The empty string is also allowed to support empty elements associated with variable references.</xsd:documentation>
+            <xsd:documentation>The objectEngineType complex type defines a string entity value that is restricted to a set of enumerations. Each valid enumeration is a valid database engine. The empty string is also allowed to support empty elements associated with variable references.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
-            <xsd:restriction base="oval-coll:CollectionStringType">
+            <xsd:restriction base="oval-coll:objectStringType">
                 <xsd:enumeration value="access">
                     <xsd:annotation>
                         <xsd:documentation>The access value describes the Microsoft Access database engine.</xsd:documentation>
@@ -1157,12 +1157,12 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionHashTypeType">
+    <xsd:complexType name="objectHashTypeType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionHashTypeType complex type restricts a string value to a specific set of values that specify the different hash algorithms that are supported. The empty string is also allowed to support empty elements associated with variable references.</xsd:documentation>
+            <xsd:documentation>The objectHashTypeType complex type restricts a string value to a specific set of values that specify the different hash algorithms that are supported. The empty string is also allowed to support empty elements associated with variable references.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
-            <xsd:restriction base="oval-coll:CollectionStringType">
+            <xsd:restriction base="oval-coll:objectStringType">
                 <xsd:enumeration value="MD5">
                     <xsd:annotation>
                         <xsd:documentation>The MD5 hash algorithm.</xsd:documentation>
@@ -1201,12 +1201,12 @@
             </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
-    <xsd:complexType name="CollectionVariableRefType">
+    <xsd:complexType name="objectVariableRefType">
         <xsd:annotation>
-            <xsd:documentation>The CollectionVariableRefType complex type defines a string object entity that has a valid OVAL variable id as the value. The empty string is also allowed to support empty elements associated with variable references.</xsd:documentation>
+            <xsd:documentation>The objectVariableRefType complex type defines a string object entity that has a valid OVAL variable id as the value. The empty string is also allowed to support empty elements associated with variable references.</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
-            <xsd:restriction base="oval-coll:CollectionStringType">
+            <xsd:restriction base="oval-coll:objectStringType">
                 <xsd:pattern value="(oval:[A-Za-z0-9_\-\.]+:var:[1-9][0-9]*){0,}"/>
             </xsd:restriction>
         </xsd:simpleContent>
@@ -1674,7 +1674,7 @@
                         <xsd:documentation>Numeric String, corresponding to OID 1.3.6.1.4.1.1466.115.121.1.36</xsd:documentation>
                     </xsd:annotation>
                 </xsd:enumeration>
-                <xsd:enumeration value="LDAPTYPE_collection_CLASS_DESCRIP_STRING">
+                <xsd:enumeration value="LDAPTYPE_object_CLASS_DESCRIP_STRING">
                     <xsd:annotation>
                         <xsd:documentation>Object Class Description, corresponding to OID 1.3.6.1.4.1.1466.115.121.1.37</xsd:documentation>
                     </xsd:annotation>
