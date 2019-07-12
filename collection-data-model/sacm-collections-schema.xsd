@@ -11,10 +11,10 @@
     <!-- =============================================================================== -->
     <!-- ======================== Root OVAL Collections Element ======================== -->
     <!-- =============================================================================== -->
-    <xsd:element name="oval_collections">
+    <xsd:element name="sacm_collections">
         <xsd:annotation>
             <xsd:documentation>
-                The oval_collections element is the root of an OVAL Collection Document. Its purpose is to bind together the major sections 
+                The sacm_collections element is the root of an SACM Collection Document. Its purpose is to bind together the major sections 
                 of a document - generator, objects, filters, and variables - which are the children of the root element.
             </xsd:documentation>
         </xsd:annotation>
@@ -35,11 +35,11 @@
                         <xsd:documentation>The optional states section contains 1 or more filters.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <!--<xsd:element name="variables" type="oval-def:VariablesType" minOccurs="0" maxOccurs="1">
+                <xsd:element name="variables" type="sacm:VariablesType" minOccurs="0" maxOccurs="1">
                     <xsd:annotation>
                         <xsd:documentation>The optional variables section contains 1 or more variables.</xsd:documentation>
                     </xsd:annotation>
-                </xsd:element>-->
+                </xsd:element>
                 <xsd:element ref="ds:Signature" minOccurs="0" maxOccurs="1">
                     <xsd:annotation>
                         <xsd:documentation>The optional Signature element allows an XML Signature as defined by the W3C to be attached to the document. This allows authentication and data integrity to be provided to the user. Enveloped signatures are supported. More information about the official W3C Recommendation regarding XML digital signatures can be found at http://www.w3.org/TR/xmldsig-core/.</xsd:documentation>
@@ -61,13 +61,13 @@
             <xsd:selector xpath="sacm-coll:filters/*"/>
             <xsd:field xpath="@id"/>
         </xsd:key>
-        <!--<xsd:key name="variableKey">
+        <xsd:key name="variableKey">
             <xsd:annotation>
                 <xsd:documentation>Enforce uniqueness amongst the ids differentiating the individual variable elements.</xsd:documentation>
             </xsd:annotation>
-            <xsd:selector xpath="oval-def:variables/*"/>
+            <xsd:selector xpath="sacm:variables/*"/>
             <xsd:field xpath="@id"/>
-        </xsd:key>-->
+        </xsd:key>
         <xsd:keyref name="collectionKeyRef" refer="sacm-coll:collectionKey">
             <xsd:annotation>
                 <xsd:documentation>Requires each collection reference to refer to a valid collection id.</xsd:documentation>
@@ -75,13 +75,13 @@
             <xsd:selector xpath=".//*"/>
             <xsd:field xpath="@collection_ref"/>
         </xsd:keyref>
-        <!--<xsd:keyref name="filterKeyRef" refer="sacm-coll:filterKey">
+        <xsd:keyref name="filterKeyRef" refer="sacm-coll:filterKey">
             <xsd:annotation>
                 <xsd:documentation>Requires each filter reference to refer to a valid filter id.</xsd:documentation>
             </xsd:annotation>
             <xsd:selector xpath=".//*"/>
-            <xsd:field xpath="@state_ref"/>
-        </xsd:keyref>-->
+            <xsd:field xpath="@filter_ref"/>
+        </xsd:keyref>
     </xsd:element>
     
     <!-- =============================================================================== -->

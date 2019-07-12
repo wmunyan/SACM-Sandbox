@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sacm_collections xmlns="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6" xmlns:sacm="http://sacm.cisecurity.org/XMLSchema/sacm-common-6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xsi:schemaLocation="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6 sacm-collections-schema.xsd">
+    <generator>
+        <sacm:product_name>SACM Collections</sacm:product_name>
+        <sacm:product_version>0.0.1</sacm:product_version>
+        <sacm:schema_version>6.0.0</sacm:schema_version>
+        <sacm:timestamp>2019-06-17T15:12:51.340-04:00</sacm:timestamp>
+    </generator>
+</sacm_collections>

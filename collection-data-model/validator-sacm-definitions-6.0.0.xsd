@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-common-6" schemaLocation="sacm-common-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6" schemaLocation="sacm-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6" schemaLocation="sacm-collections-schema.xsd"/>
+    
+    <!--<xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#aix" schemaLocation="aix-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#android" schemaLocation="android-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#apache" schemaLocation="apache-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#apple_ios" schemaLocation="apple-ios-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#asa" schemaLocation="asa-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#catos" schemaLocation="catos-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#esx" schemaLocation="esx-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#freebsd" schemaLocation="freebsd-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#hpux" schemaLocation="hpux-definitions-schema.xsd"/>-->
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#independent" schemaLocation="independent-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-collections-6#independent" schemaLocation="independent-collections-schema.xsd"/>
+    <!--<xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#ios" schemaLocation="ios-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#iosxe" schemaLocation="iosxe-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#junos" schemaLocation="junos-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#linux" schemaLocation="linux-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#macos" schemaLocation="macos-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#netconf" schemaLocation="netconf-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#pixos" schemaLocation="pixos-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#sharepoint" schemaLocation="sharepoint-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#solaris" schemaLocation="solaris-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#unix" schemaLocation="unix-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#windows" schemaLocation="windows-definitions-schema.xsd"/>
+    
+    
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#esxi" schemaLocation="x-vmware-esxi-65-definitions-schema.xsd"/>
+    <xsd:import namespace="http://oval.mitre.org/XMLSchema/x-unix-invalidhomedirownership" schemaLocation="x-unix-invalidhomedirownership-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#iis" schemaLocation="x-windows-iis-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#cmd" schemaLocation="x-shellcommand-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#x-docker" schemaLocation="x-docker-definitions-schema.xsd"/>
+    <xsd:import namespace="http://sacm.cisecurity.org/XMLSchema/sacm-definitions-6#kubernetes" schemaLocation="x-kubernetes-definitions-schema.xsd"/>-->
+</xsd:schema>
