@@ -12,7 +12,7 @@
         <xsd:documentation>The following is a description of the elements, types, and attributes that compose the core schema for encoding Open Vulnerability and Assessment Language (OVAL) System Characteristics. The Core System Characteristics Schema defines all operating system independent objects. These objects are extended and enhanced by individual family schemas, which are described in separate documents. Each of the elements, types, and attributes that make up the Core System Characteristics Schema are described in detail and should provide the information necessary to understand what each object represents. This document is intended for developers and assumes some familiarity with XML. A high level description of the interaction between these objects is not outlined here.</xsd:documentation>
         <xsd:documentation>The OVAL Schema is maintained by the OVAL Community. For more information, including how to get involved in the project and how to submit change requests, please visit the OVAL website at http://oval.cisecurity.org.</xsd:documentation>
         <xsd:appinfo>
-            <schema>oval System Characteristics</schema>
+            <schema>OVAL System Characteristics</schema>
             <version>6.0.0</version>
             <date>07/10/2019 09:00:00 AM</date>
             <terms_of_use>For the portion subject to the copyright in the United States: Copyright (c) 2016 United States Government. All rights reserved. Copyright (c) 2016, Center for Internet Security. All rights reserved. The contents of this file are subject to the terms of the OVAL License located at https://oval.cisecurity.org/terms. See the OVAL License for the specific language governing permissions and limitations for use of this schema. When distributing copies of the OVAL Schema, this license header must be included.</terms_of_use>
@@ -25,7 +25,12 @@
     <!-- =============================================================================== -->
     <xsd:element name="oval_system_characteristics">
         <xsd:annotation>
-            <xsd:documentation>The oval_system_characteristics element is the root of an OVAL System Characteristics Document, and must occur exactly once. Its purpose is to bind together the four major sections of a system characteristics file - generator, system_info, collected_objects, and system_data - which are the children of the oval_system_characteristics element.</xsd:documentation>
+            <xsd:documentation>
+                The oval_system_characteristics element is the root of an OVAL System Characteristics Document, 
+                and must occur exactly once. Its purpose is to bind together the four major sections of a system 
+                characteristics file - generator, system_info, collected_objects, and system_data - which are the 
+                children of the oval_system_characteristics element.
+            </xsd:documentation>
         </xsd:annotation>
         <xsd:complexType>
             <xsd:sequence>
@@ -34,7 +39,7 @@
                         <xsd:documentation>The generator section must be present and provides information about when the system characteristics file was compiled and under what version.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="system_info" type="oval-sc:SystemInfoType">
+                <xsd:element name="system_info" type="oval-sc:SystemInfoType" minOccurs="0" maxOccurs="1">
                     <xsd:annotation>
                         <xsd:documentation>The required system_info element is used to record information about the system being described.</xsd:documentation>
                     </xsd:annotation>
@@ -202,7 +207,7 @@
                 </xsd:annotation>
             </xsd:element>
         </xsd:sequence>
-        <xsd:attribute name="id" type="oval:CollectionIDPattern" use="required"/>
+        <xsd:attribute name="id" type="oval:ObjectIDPattern" use="required"/>
         <xsd:attribute name="version" type="xsd:nonNegativeInteger" use="required"/>
         <xsd:attribute name="variable_instance" type="xsd:nonNegativeInteger" use="optional" default="1"/>
         <xsd:attribute name="comment" type="xsd:string" use="optional"/>
@@ -222,7 +227,7 @@
         <xsd:annotation>
             <xsd:documentation>The ReferenceType complex type specifies an item in the system characteristics file. This reference is used to link global OVAL Objects to specific items.</xsd:documentation>
         </xsd:annotation>
-        <xsd:attribute name="item_ref" type="oval:CollectedItemIDPattern" use="required"/>
+        <xsd:attribute name="item_ref" type="oval:ItemIDPattern" use="required"/>
     </xsd:complexType>
     <!-- =============================================================================== -->
     <!-- ================================  SYSTEM DATA  ================================ -->
@@ -237,7 +242,14 @@
     </xsd:complexType>
     <xsd:element name="collected_item" type="oval-sc:CollectedItemType" abstract="true">
         <xsd:annotation>
-            <xsd:documentation>The abstract item element holds information about a specific item on a system. An item might be a file, a rpm, a process, etc. This element is extended by the different component schemas through substitution groups. Each item represents a unique instance of an object as specified by an OVAL Object. For example, a single file or a single user. Each item may be referenced by more than one object in the collected object section. Please refer to the description of ItemType for more details about the information stored in items.</xsd:documentation>
+            <xsd:documentation>
+                The abstract item element holds information about a specific item on a system. An item might 
+                be a file, a rpm, a process, etc. This element is extended by the different component schemas 
+                through substitution groups. Each item represents a unique instance of an object as specified 
+                by an OVAL Object. For example, a single file or a single user. Each item may be referenced by 
+                more than one object in the collected object section. Please refer to the description of ItemType 
+                for more details about the information stored in items.
+            </xsd:documentation>
         </xsd:annotation>
     </xsd:element>
     <xsd:complexType name="CollectedItemType">
@@ -250,7 +262,7 @@
         <xsd:sequence>
             <xsd:element name="message" type="oval:MessageType" minOccurs="0" maxOccurs="50"/>
         </xsd:sequence>
-        <xsd:attribute name="id" type="oval:CollectedItemIDPattern" use="required"/>
+        <xsd:attribute name="id" type="oval:ItemIDPattern" use="required"/>
         <xsd:attribute name="status" type="oval-sc:StatusEnumeration" use="optional" default="exists"/>
     </xsd:complexType>
     <!-- =============================================================================== -->
@@ -348,7 +360,6 @@
     <!-- =============================================================================== -->
     <!-- ===============================  ENTITY TYPES  ================================ -->
     <!-- =============================================================================== -->
-    
     <xsd:attributeGroup name="EntityAttributeGroup">
         <xsd:annotation>
             <xsd:documentation>The EntityAttributeGroup is a collection of attributes that are common to all entities. This group defines these attributes and their default values. Individual entities may limit allowed values for these attributes, but all entities will support these attributes.</xsd:documentation>
@@ -402,7 +413,6 @@
             </xsd:extension>
         </xsd:simpleContent>
     </xsd:complexType>
-    
     <xsd:complexType name="CollectedItemComplexBaseType" abstract="true">
         <xsd:annotation>
             <xsd:documentation>The CollectedItemComplexBaseType complex type is an abstract type that serves as the base type for all complex item entities.</xsd:documentation>

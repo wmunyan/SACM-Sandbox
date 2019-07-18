@@ -25,7 +25,7 @@
                         <xsd:documentation>The required generator section provides information about when the definition file was compiled and under what version.</xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
-                <xsd:element name="Objects" type="oval-coll:ObjectsType" minOccurs="0" maxOccurs="1">
+                <xsd:element name="objects" type="oval-coll:ObjectsType" minOccurs="0" maxOccurs="1">
                     <xsd:annotation>
                         <xsd:documentation>The optional objects section contains 1 or more objects.</xsd:documentation>
                     </xsd:annotation>
