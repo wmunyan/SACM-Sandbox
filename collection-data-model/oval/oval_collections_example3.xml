@@ -16,5 +16,9 @@
             id="oval:org.cisecurity:obj:1" 
             version="1" 
             comment="This family_object represents the family that the operating system belongs to."/>
+        
+        <ind-coll:environmentvariable_object id="oval:org.cisecurity:obj:2" version="1" comment="The HOME environment variable">
+            <ind-coll:name>HOME</ind-coll:name>
+        </ind-coll:environmentvariable_object>
     </objects>
 </oval_objects>

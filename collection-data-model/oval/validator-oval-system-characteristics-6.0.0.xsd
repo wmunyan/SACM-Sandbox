@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-common-6" schemaLocation="oval-common-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6" schemaLocation="oval-system-characteristics-schema.xsd"/>
+    
+    <!--<xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#aix" schemaLocation="aix-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#android" schemaLocation="android-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#apache" schemaLocation="apache-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#apple_ios" schemaLocation="apple-ios-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#asa" schemaLocation="asa-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#catos" schemaLocation="catos-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#esx" schemaLocation="esx-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#freebsd" schemaLocation="freebsd-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#hpux" schemaLocation="hpux-system-characteristics-schema.xsd"/>-->
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#independent" schemaLocation="independent-system-characteristics-schema.xsd"/>
+    <!--<xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#ios" schemaLocation="ios-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#iosxe" schemaLocation="iosxe-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#junos" schemaLocation="junos-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#linux" schemaLocation="linux-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#macos" schemaLocation="macos-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#netconf" schemaLocation="netconf-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#pixos" schemaLocation="pixos-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#sharepoint" schemaLocation="sharepoint-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#solaris" schemaLocation="solaris-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#unix" schemaLocation="unix-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#windows" schemaLocation="windows-system-characteristics-schema.xsd"/>
+    
+    
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#esxi" schemaLocation="x-vmware-esxi-65-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#iis" schemaLocation="x-windows-iis-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#cmd" schemaLocation="x-shellcommand-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#x-docker" schemaLocation="x-docker-system-characteristics-schema.xsd"/>
+    <xsd:import namespace="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#kubernetes" schemaLocation="x-kubernetes-system-characteristics-schema.xsd"/>-->
+</xsd:schema>
