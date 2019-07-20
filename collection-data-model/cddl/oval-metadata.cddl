@@ -1,0 +1,111 @@
+; #### metadata definition ####
+
+metadata = $metadata .within metadata-struct
+
+metadata-struct = { 
+  metadata-name-key => qualified-name,
+  general-metadata-attributes,
+  ? server-side-metadata-attributes,
+  ? meta-data-key => { + (uint => any)},
+}
+
+general-metadata-attributes = (
+  ifmap-lifetime-key => &lifetime-enum,
+  ifmap-cardinality-key => &cardinality-enum,
+)
+
+server-side-metadata-attributes = (
+  ifmap-publisher-id-key => tstr,
+  ifmap-timestamp-key => tstr,
+  ifmap-timestamp-fraction-key => uint, 
+)
+
+lifetime-enum = (
+  session: 0,
+  forever: 1,
+)
+cardinality-enum = (
+  single: 0,
+  multiple: 1,
+)
+
+metadata-name-key = 1
+ifmap-lifetime-key = 2
+ifmap-cardinality-key = 3
+ifmap-publisher-id-key = 4
+ifmap-timestamp-key = 5
+ifmap-timestamp-fraction-key = 6
+meta-data-key = 7
+
+; #### end of metadata definition ####
+
+; #### oval metadata definition ####
+$metadata /= metadata-assoc-gen
+
+metadata-assoc-gen = { 
+  metadata-name-key => oval-assoc-generator,
+  general-metadata-attributes,
+  ? server-side-metadata-attributes,
+}
+
+$metadata /= metadata-envvar-value
+
+metadata-envvar-value = { 
+  metadata-name-key => oval-envvar-value,
+  general-metadata-attributes,
+  ? server-side-metadata-attributes,
+  meta-data-key => {
+    value-key => tstr,
+    type-key => &(
+      text: 0,
+      number: 1,
+    ),
+  },
+}
+
+$metadata /= metadata-os-inst
+
+metadata-os-inst = { 
+  metadata-name-key => oval-os-inst,
+  general-metadata-attributes,
+  ? server-side-metadata-attributes,
+  meta-data-key => {
+    version-key => tstr,
+    arch-key => tstr,
+  },
+}
+
+assoc-generator-name = 1
+
+envvar-val-name = 2
+  value-key = 0
+  type-key = 1
+  
+os-inst-name = 3
+  version-key = 0
+  arch-key = 1
+
+oval-assoc-generator = [pen.test, label.sacm, assoc-generator-name, 1]
+oval-envvar-value = [pen.test, label.sacm, envvar-val-name, 1]
+oval-os-inst = [pen.test, label.sacm, os-inst-name, 1]
+
+label.sacm = 0
+pen.test = 0
+
+; #### end of oval metadata definition ####
+
+; #### common type definition ####
+
+qualified-name = [
+  pen,
+  label,
+  name,
+  ?version
+]
+
+pen = uint
+label = uint
+name = uint
+version = uint
+
+; #### end of common type definition ####

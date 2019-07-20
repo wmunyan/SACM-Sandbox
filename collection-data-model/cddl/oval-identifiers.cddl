@@ -22,20 +22,64 @@ identifier-generator = {
   identifier-name-key => oval-generator,
   administrative-domain-key => tstr,
   identifier-data-key => {
-    ? product-name-key => tstr,
-    ? product-version-key => tstr,
+    product-name-key => tstr,
+    product-version-key => tstr,
     ? schema-version-key => [ + tstr],
-    ? timestamp-key => tdate
-  }
+    ? timestamp-key => tdate,
+  },
 }
 
-generator-name = 1
+$identifier /= identifier-system
+
+identifier-system = {
+  identifier-name-key => oval-system,
+  administrative-domain-key => tstr,
+  identifier-data-key => {
+    host-name-key => tstr,
+    architecture-key => tstr,
+  },
+}
+
+$identifier /= identifier-os
+
+identifier-os = {
+  identifier-name-key => oval-os,
+  administrative-domain-key => tstr,
+  identifier-data-key => {
+    family-key => tstr,
+  },
+}
+
+$identifier /= identifier-environment
+
+identifier-environment = {
+  identifier-name-key => oval-environment,
+  administrative-domain-key => tstr,
+  identifier-data-key => {
+    name-key => tstr,
+  },
+}
+
+system-name = 1
+  host-name-key = 0
+  architecture-key = 1
+
+generator-name = 2
   product-name-key = 0
   product-version-key = 1
   schema-version-key = 2
   timestamp-key = 3
 
-oval-generator = [pen.test, label.sacm,generator-name,1]
+os-name = 3
+  family-key = 0
+  
+environment-name = 4
+  name-key = 0  
+
+oval-generator = [pen.test, label.sacm, generator-name, 1]
+oval-system = [pen.test, label.sacm, system-name, 1]
+oval-os = [pen.test, label.sacm, os-name, 1]
+oval-environment = [pen.test, label.sacm, environment-name, 1]
 
 label.sacm = 0
 pen.test = 0
