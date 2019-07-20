@@ -1,0 +1,40 @@
+                                                                                                                 +---------------------------+
+                                      +---------------------------+                                              |                           |
+                                      |                           |                                              |  IP Address (Identifier)  |
+                                      |  NetworkInt (Identifier)  +----------------------------------------------+  Value: 10.01.00.1        |
+                                      |  Name: Eth0               |           Assoc. IP (Metadata)               |  Type: IP4                |
+                                      |                           |                                              |                           |
+                                      |                           |                                              +---------------------------+
+                                      +----------+----------------+
+                                                 |                |                                +----------------------------+
+                                                 |                |                                |                            |
+                                                 | Assoc.NIC      |    Assoc. MAC                  |  MAC Address (Identifier)  |
+                                                 |                +--------------------------------+  Value: 0000:..            |
+                                                 |                                                 |                            |
+                                                 |                                                 +----------------------------+
+                                                 |
+                                                 |
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Above not in scope of this hackathon. XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                                 |
+                                                 |
+                                      +----------+-----------------+
+    Assoc.Generator (Metadata)        |                            |
+                    +-----------------+   System(Identifier)       |
+                    |                 |   Hostname: host.abc.com.  |
+                    |                 |   Architecture: x86_64     |
+                    |                 |                            |                             +-------------------------------------+
+                    |                 +-------------------------+--+   Current Value (Metadata)  |                                     |
+                    |                                           |  |   Value: /root/             |  Environment Variable (Identifier)  |
++-------------------+------+                                    |  +-----------------------------+  Name: HOME                         |
+|                          |                                    |                                |                                     |
+|  Generator (Identifier)  |                                    | Installed OS (Metadata)        |                                     |
+|  ProductName: Something  |                                    | Version: 02020220              +-------------------------------------+
+|  ProductVersion: 6       |                                    | Arch: x86_64 - Gibbon
+|                          |                                    |
++--------------------------+                                    |
+                                                              +-+-----------------+
+                                                              |                   |
+                                                              |  OS (Identifier)  |
+                                                              |  Family: Linux    |
+                                                              |                   |
+                                                              +-------------------+
