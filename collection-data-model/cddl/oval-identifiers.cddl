@@ -1,0 +1,59 @@
+; #### identifier definition ####
+
+identifier = $identifier .within identifier-struct
+
+identifier-struct = { 
+  identifier-name-key => qualified-name,
+  administrative-domain-key => tstr,
+  ? identifier-data-key => {+ (uint => any)},
+}
+
+identifier-name-key = 1
+administrative-domain-key = 2
+identifier-data-key = 3
+
+; #### end of identifier definition ####
+
+; #### oval identifier definition ####
+
+$identifier /= identifier-generator
+
+identifier-generator = {
+  identifier-name-key => oval-generator,
+  administrative-domain-key => tstr,
+  identifier-data-key => {
+    ? product-name-key => tstr,
+    ? product-version-key => tstr,
+    ? schema-version-key => [ + tstr],
+    ? timestamp-key => tdate
+  }
+}
+
+generator-name = 1
+  product-name-key = 0
+  product-version-key = 1
+  schema-version-key = 2
+  timestamp-key = 3
+
+oval-generator = [pen.test, label.sacm,generator-name,1]
+
+label.sacm = 0
+pen.test = 0
+
+; #### end of oval identifier definition ####
+
+; #### common type definition ####
+
+qualified-name = [
+  pen,
+  label,
+  name,
+  ?version
+]
+
+pen = uint
+label = uint
+name = uint
+version = uint
+
+; #### end of common type definition ####
