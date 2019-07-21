@@ -30,7 +30,7 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Above not in scope of
 |  Generator (Identifier)  |                 |  Installed OS (Metadata)                          |                                     |
 |  ProductName: Something  |                 |  Version: 02020220                                +------------------+------------------+
 |  ProductVersion: 6       |                 |  Arch: x86_64 + Gibbon                                               |
-|                          |                 |                                                 Reference (Metadata) |
+|                          |                 |  Name: Ubuntu                                   Reference (Metadata) |
 +--------------------------+                 |                                                                      |                     +-----------------------------------+
                                            +-+-----------------+                                                    |                     |                                   |
                                            |                   |     +---------------------------+   +--------------+------------+        |  Identifier (Identifier)          |
