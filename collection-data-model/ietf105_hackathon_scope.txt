@@ -31,12 +31,12 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Above not in scope of
 |  ProductName: Something  |                 |  Version: 02020220                                +------------------+------------------+
 |  ProductVersion: 6       |                 |  Arch: x86_64 + Gibbon                                               |
 |                          |                 |                                                  Collects (Metadata) |
-+--------------------------+                 |                                                                      |                     +---------------------------+
-                                           +-+-----------------+                                                    |                     |                           |
-                                           |                   |     +---------------------------+   +--------------+------------+        |  Collection (Identifier)  |
-                                           |  OS (Identifier)  |     |                           |   |                           |        |  ID: 38AFBA               |
-                                           |  Family: Linux    |     |  Identifier (Identifier)  |   |  Identifier (Identifier)  |        |                           |
-                                           |                   |     |  Value: org.some:1        |   |  ID: org.some:1           |        +--------+-----------+------+
++--------------------------+                 |                                                                      |                     +-----------------------------------+
+                                           +-+-----------------+                                                    |                     |                                   |
+                                           |                   |     +---------------------------+   +--------------+------------+        |  Collection (Identifier)          |
+                                           |  OS (Identifier)  |     |                           |   |                           |        |  ID: 38AFBA                       |
+                                           |  Family: Linux    |     |  Identifier (Identifier)  |   |  Identifier (Identifier)  |        |  // Is there something like this? |
+                                           |                   |     |  Value: org.some:1        |   |  ID: org.some:1           |        +--------+-----------+--------------+
                                            +--------+----------+   +-+                           |   |                           |                 |           |
                                                     |              | +-----------------+---------+   +--------+------------------+                 |           |
                                                     +--------------+                   |                      |                                    |           |
