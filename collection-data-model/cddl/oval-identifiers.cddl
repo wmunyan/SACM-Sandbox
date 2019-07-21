@@ -60,6 +60,20 @@ identifier-environment = {
   },
 }
 
+$identifier /= identifier-oval
+
+identifier-oval = {
+  identifier-name-key => oval-id,
+  administrative-domain-key => tstr,
+  identifier-data-key => {
+    id-key => tstr,
+    type-key => &(
+      collection: 0,
+      item: 1,
+    ),
+  },
+}
+
 system-name = 1
   host-name-key = 0
   architecture-key = 1
@@ -75,11 +89,16 @@ os-name = 3
   
 environment-name = 4
   name-key = 0  
+  
+oval-id-name = 5
+  id-key = 0
+  type-key = 1
 
 oval-generator = [pen.test, label.sacmid, generator-name, 1]
 oval-system = [pen.test, label.sacmid, system-name, 1]
 oval-os = [pen.test, label.sacmid, os-name, 1]
 oval-environment = [pen.test, label.sacmid, environment-name, 1]
+oval-id = [pen.test, label.sacmid, oval-id-name, 1]
 
 label.sacmid = 0
 pen.test = 0

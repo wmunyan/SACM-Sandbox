@@ -8,8 +8,8 @@
                                       +----------+----------------+
                                                  |                |                                +----------------------------+
                                                  |                |                                |                            |
-                                                 | Assoc.NIC      |    Assoc. MAC                  |  MAC Address (Identifier)  |
-                                                 |                +--------------------------------+  Value: 0000:..            |
+                                                 | Assoc.NIC      |    Assoc. MAC (Metadata)       |  MAC Address (Identifier)  |
+                                                 | (Metadata)     +--------------------------------+  Value: 0000:..            |
                                                  |                                                 |                            |
                                                  |                                                 +----------------------------+
                                                  |
@@ -30,19 +30,20 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Above not in scope of
 |  Generator (Identifier)  |                 |  Installed OS (Metadata)                          |                                     |
 |  ProductName: Something  |                 |  Version: 02020220                                +------------------+------------------+
 |  ProductVersion: 6       |                 |  Arch: x86_64 + Gibbon                                               |
-|                          |                 |                                                  Collects (Metadata) |
+|                          |                 |                                                 Reference (Metadata) |
 +--------------------------+                 |                                                                      |                     +-----------------------------------+
                                            +-+-----------------+                                                    |                     |                                   |
-                                           |                   |     +---------------------------+   +--------------+------------+        |  Collection (Identifier)          |
+                                           |                   |     +---------------------------+   +--------------+------------+        |  Identifier (Identifier)          |
                                            |  OS (Identifier)  |     |                           |   |                           |        |  ID: 38AFBA                       |
-                                           |  Family: Linux    |     |  Identifier (Identifier)  |   |  Identifier (Identifier)  |        |  // Is there something like this? |
-                                           |                   |     |  Value: org.some:1        |   |  ID: org.some:1           |        +--------+-----------+--------------+
-                                           +--------+----------+   +-+                           |   |                           |                 |           |
-                                                    |              | +-----------------+---------+   +--------+------------------+                 |           |
-                                                    +--------------+                   |                      |                                    |           |
-                                                   Collects (Metadata)                 |                      +------------------------------------+           |
+                                           |  Family: Linux    |     |  Identifier (Identifier)  |   |  Identifier (Identifier)  |        |  Type: Collection                 |
+                                           |                   |     |  ID: org.some:2           |   |  ID: org.some:1           |        |  // Is there something like this? |
+                                           +--------+----------+     |  Type: Item               |   |  Type: Item               |        +--------+-----------+--------------+
+                                                    |                |                           |   |                           |                 |           |
+                                                    +--------------- +-----------------+---------+   +--------+------------------+                 |           |
+                                                   Reference (Metadata)                |                      |                                    |           |
+                                                                                       |                      +------------------------------------+           |
+                                                                                       |                           Reference (Metadata)                        |
                                                                                        |                                                                       |
-                                                                                       |                           Includes (Metadata)                         |
-                                                                                       |                                                                       |
+                                                                                       |                           Reference (Metadata)                        |
                                                                                        +-----------------------------------------------------------------------+
 

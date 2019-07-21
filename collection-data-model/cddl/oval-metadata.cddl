@@ -75,6 +75,14 @@ metadata-os-inst = {
   },
 }
 
+$metadata /= metadata-oval-ref
+
+metadata-oval-ref = { 
+  metadata-name-key => oval-ref,
+  general-metadata-attributes,
+  ? server-side-metadata-attributes,
+}
+
 assoc-generator-name = 1
 
 envvar-val-name = 2
@@ -85,9 +93,12 @@ os-inst-name = 3
   version-key = 0
   arch-key = 1
 
+oval-ref-name = 4
+
 oval-assoc-generator = [pen.test, label.sacmmeta, assoc-generator-name, 1]
 oval-envvar-value = [pen.test, label.sacmmeta, envvar-val-name, 1]
 oval-os-inst = [pen.test, label.sacmmeta, os-inst-name, 1]
+oval-ref = [pen.test, label.sacmmeta, oval-ref-name, 1]
 
 label.sacmmeta = 0
 pen.test = 0
