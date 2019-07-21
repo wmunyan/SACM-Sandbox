@@ -76,12 +76,12 @@ os-name = 3
 environment-name = 4
   name-key = 0  
 
-oval-generator = [pen.test, label.sacm, generator-name, 1]
-oval-system = [pen.test, label.sacm, system-name, 1]
-oval-os = [pen.test, label.sacm, os-name, 1]
-oval-environment = [pen.test, label.sacm, environment-name, 1]
+oval-generator = [pen.test, label.sacmid, generator-name, 1]
+oval-system = [pen.test, label.sacmid, system-name, 1]
+oval-os = [pen.test, label.sacmid, os-name, 1]
+oval-environment = [pen.test, label.sacmid, environment-name, 1]
 
-label.sacm = 0
+label.sacmid = 0
 pen.test = 0
 
 ; #### end of oval identifier definition ####

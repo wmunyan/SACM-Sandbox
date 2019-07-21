@@ -85,11 +85,11 @@ os-inst-name = 3
   version-key = 0
   arch-key = 1
 
-oval-assoc-generator = [pen.test, label.sacm, assoc-generator-name, 1]
-oval-envvar-value = [pen.test, label.sacm, envvar-val-name, 1]
-oval-os-inst = [pen.test, label.sacm, os-inst-name, 1]
+oval-assoc-generator = [pen.test, label.sacmmeta, assoc-generator-name, 1]
+oval-envvar-value = [pen.test, label.sacmmeta, envvar-val-name, 1]
+oval-os-inst = [pen.test, label.sacmmeta, os-inst-name, 1]
 
-label.sacm = 0
+label.sacmmeta = 0
 pen.test = 0
 
 ; #### end of oval metadata definition ####

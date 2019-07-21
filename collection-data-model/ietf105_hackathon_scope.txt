@@ -13,9 +13,9 @@
                                                  |                                                 |                            |
                                                  |                                                 +----------------------------+
                                                  |
-                                                 |
+                                                 +
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Above not in scope of this hackathon. XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                                 |
+                                                 +
                                                  |
                                       +----------+-----------------+
     Assoc.Generator (Metadata)        |                            |
@@ -26,15 +26,23 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Above not in scope of
                     |                 +-------------------------+--+   Current Value (Metadata)  |                                     |
                     |                                           |  |   Value: /root/             |  Environment Variable (Identifier)  |
 +-------------------+------+                                    |  +-----------------------------+  Name: HOME                         |
-|                          |                                    |                                |                                     |
-|  Generator (Identifier)  |                                    | Installed OS (Metadata)        |                                     |
-|  ProductName: Something  |                                    | Version: 02020220              +-------------------------------------+
-|  ProductVersion: 6       |                                    | Arch: x86_64 - Gibbon
-|                          |                                    |
-+--------------------------+                                    |
-                                                              +-+-----------------+
-                                                              |                   |
-                                                              |  OS (Identifier)  |
-                                                              |  Family: Linux    |
-                                                              |                   |
-                                                              +-------------------+
+|                          |                 +------------------+                                |                                     |
+|  Generator (Identifier)  |                 |  Installed OS (Metadata)                          |                                     |
+|  ProductName: Something  |                 |  Version: 02020220                                +------------------+------------------+
+|  ProductVersion: 6       |                 |  Arch: x86_64 + Gibbon                                               |
+|                          |                 |                                                  Collects (Metadata) |
++--------------------------+                 |                                                                      |                     +---------------------------+
+                                           +-+-----------------+                                                    |                     |                           |
+                                           |                   |     +---------------------------+   +--------------+------------+        |  Collection (Identifier)  |
+                                           |  OS (Identifier)  |     |                           |   |                           |        |  ID: 38AFBA               |
+                                           |  Family: Linux    |     |  Identifier (Identifier)  |   |  Identifier (Identifier)  |        |                           |
+                                           |                   |     |  Value: org.some:1        |   |  ID: org.some:1           |        +--------+-----------+------+
+                                           +--------+----------+   +-+                           |   |                           |                 |           |
+                                                    |              | +-----------------+---------+   +--------+------------------+                 |           |
+                                                    +--------------+                   |                      |                                    |           |
+                                                   Collects (Metadata)                 |                      +------------------------------------+           |
+                                                                                       |                                                                       |
+                                                                                       |                           Includes (Metadata)                         |
+                                                                                       |                                                                       |
+                                                                                       +-----------------------------------------------------------------------+
+

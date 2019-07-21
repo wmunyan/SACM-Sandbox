@@ -34,7 +34,7 @@
     </collected_objects>
     <system_data>
         <family_item xmlns="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#independent" id="1">
-            <family>windows</family>
+            <family>linux</family>
         </family_item>
         <environmentvariable_item xmlns="http://oval.cisecurity.org/XMLSchema/oval-system-characteristics-6#independent" id="2">
             <name>HOME</name>
