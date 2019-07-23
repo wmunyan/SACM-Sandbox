@@ -1,0 +1,20 @@
+ Workflow 2: Direct XMPP Communication
+
+            +------------------+                                   +-------------------+
+            |   Orchestrator   +----------------------------------->   XMPP Adapter    |
+            +---------+--------+    Orchestrator sends IQ          +---------+---------+
+                      |             containing system characteristics        |
+IQ request containing |             directly to XMPP Adapter                 |
+<oval_objects>        |                                                      |
+                      |                                            +---------v---------+ MAP Client translates
+                      |                                            |     MAP Client    | system characteristics XML
+                      |                                            +---------+---------+ to CBOR and publishes to
+                      |                                                      |           the MAP Server
+                      |                                                      |
+                      | IQ response containing                               |
+                      | <oval_system_characteristics>              +---------v---------+
+                      |                                            |    MAP Server     |
+                      |                                            +-------------------+
+            +---------+--------+
+            |     Collector    |
+            +------------------+

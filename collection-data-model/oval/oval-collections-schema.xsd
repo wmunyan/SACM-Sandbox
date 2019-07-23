@@ -46,6 +46,7 @@
                     </xsd:annotation>
                 </xsd:element>
             </xsd:sequence>
+            <xsd:attribute name="collection-id" type="oval:CollectionIDPattern" use="optional"/>
         </xsd:complexType>
         <xsd:key name="ObjectKey">
             <xsd:annotation>

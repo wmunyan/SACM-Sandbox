@@ -1,0 +1,27 @@
+
+Workflow 1: XMPP Pub/Sub
+
+
+            +------------------+                               +-----------------------------+
+            |   Orchestrator   +------------------------------->      XMPP Pub/Sub Topic     |
+            +---------+--------+    Orchestrator publishes     +--------------+--------------+
+                      |             system characteristics                    |
+IQ request containing |                                                       |  XMPP Adapter receives
+<oval_objects>        |                                                       |  subscription event containing
+                      |                                                       |  system characteristics
+                      |                                                       |
+                      |                         XMPP Adapter is     +---------v---------+
+                      |                         subscribed to topic |   XMPP Adapter    |
+                      |                                             +---------+---------+
+                      | IQ response containing                                |
+                      | <oval_system_characteristics>                         |
+                      |                                                       |
+                      |                                             +---------v---------+ MAP Client translates
+            +---------+--------+                                    |     MAP Client    | system characteristics XML
+            |     Collector    |                                    +---------+---------+ to CBOR and publishes to
+            +------------------+                                              |           the MAP Server
+                                                                              |
+                                                                              |
+                                                                    +---------v---------+
+                                                                    |    MAP Server     |
+                                                                    +-------------------+

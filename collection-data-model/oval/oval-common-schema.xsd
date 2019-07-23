@@ -859,6 +859,20 @@ at_least_one_exists ||  0   |  0+  |  1+  |  0+  ||  Error
         </xsd:annotation>
         <xsd:restriction base="xsd:integer"/>
     </xsd:simpleType>
+    <xsd:simpleType name="CollectionIDPattern">
+        <xsd:annotation>
+            <xsd:documentation>
+                Define the format for uniquely identifying collection operations. An urn format is used 
+                with the id starting with the word oval followed by a unique string, followed by the word 
+                'collection', and ending with an integer. A collection id is used to identify the set of 
+                OVAL objects used for a given collection and used as a reference within generated OVAL 
+                system characteristics.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="oval:[A-Za-z0-9_\-\.]+:collection:[1-9][0-9]*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
     <xsd:simpleType name="SchemaVersionPattern">
         <xsd:annotation>
             <xsd:documentation>Define the format for acceptable OVAL Language version strings.</xsd:documentation>
