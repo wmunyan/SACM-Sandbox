@@ -1,0 +1,151 @@
+NOTES: Dave W, Bill M
+JABBER: Stephen B.
+
+SACM WG @ IETF 105
+17:40 - 19:10, Thursday July 25th, Van Horn
+==================
+
+Intro / Agenda Bash - Chairs
+N/A
+
+
+WGLC wrap-up on ROLIE Software Descriptor Extension (Banghart)
+https://tools.ietf.org/wg/sacm/draft-ietf-sacm-rolie-softwaredescriptor/
+    
+    Updates have been made in accordance with comments -07
+    Extended last call comments into -08
+    One "major" change is just a typo (application/coswid+cbor --> application/swid+cbor)
+    Will move the draft forward post-WGLC
+    
+WGLC wrap-up on Concise Software Identifiers (COSWID) (Waltermire)
+https://tools.ietf.org/wg/sacm/draft-ietf-sacm-coswid/
+CBOR-encoded SWID; the "younger brother" of SWID tags
+9 or so reviews during WGLC
+3 reviewers with detailed comments - addressed by -12 revision
+1 additional typo still in the -12
+Mostly clarification stuff - editorial issues
+1 normative change - UUID = 16-byte bstr
+New IANA registrations - "swid", "swidpath" and a registry for using CoSWID with SWIMA
+
+all open issues addressed, changes made based on all provided comments
+
+Ira on jabber - notes on RFC5198; to do with LF/CRLFs
+- Henk: its just "baggage from telnet"; dont really have to really worry about it right now
+- Ira: Agrees with keeping the 5198 reference
+- Kathleen would like to read it
+
+2-week "double check" post-WGLC
+
+
+WGLC wrap-up on Endpoint Posture Collection (ECP) (Haynes/Fitzgerald-McKay)
+https://tools.ietf.org/wg/sacm/draft-ietf-sacm-ecp/
+Lots of reviews
+Jess incorporating changes eventually; plan for an update in September
+Henk sent in comments today
+No show stoppers - Henk might not make it past his 97 issues
+
+
+Kathleen:
+CARIS Workshop
+- Adoption and (lack of) adoption on protocols
+For those protocols/data formats -- The work done didnt match what was wanted
+
+Using IODEF as storage format, but not necessarily for exchange
+
+Are things on the right track towards adoption
+
+Adam: Members want tools to interoperate quickly and easily
+- Tripwire blog:  Cooperative ecosystem based on open and available tools, using standards
+
+Brett (Vendor Hat): The more complex the standard is, the less likely it will be implemented
+- Want simple, easy to integrate
+- Boil things down to bite-sized pieces that people can understand
+Adam: The standards-based stuff isnt the secret sauce, not the competitive advantage.  Would having open tools/libraries help
+Brett:  Would depend on the integrations and liability of the open source code and support level
+Standards are read/understood when the business requires it
+
+Henk: Look at the hackathons
+Dave: Vendors/NIST came initially to work on the next-gen of SCAP/OVAL/XCCDF
+SCAP2.0 effort is an attempt to rebuild the community - meeting outside of the IETF, new authoring formats around XCCDF/OVAL
+
+Hum: Should the WG devote some time in a virtual interim for more discussion on this? Summary: Strong support for, no objections.
+
+SACM Hackathon Progress Report (Munyan)
+Bill reviewed slides to share this hackathon's results. Used a modified OVAL by decoupling collection from the typically monolithic OVAL document model. System characteristics were collected when requested to do so and results were provided to a MAP of CBOR data. XML could be translated back from the MAP to XML.
+
+
+Slide: Thanks
+Stephen Banghart: Thanks for all of your (and Carl's) work. It would be great if you could brief the SCAP endpoint collection group.
+Henk: This is getting at what caused us to get stuck. This shows a good proof of concept that shows the operations needed to get clarity moving forward. This is a good basis to create a data model. More interation will be needed to complete this, and we might not want to rely on the hackathon alone.
+Bill: Is there a more generic way to represent something like the OVAL data that doesn't constanly require modifications for adding new data.
+Henk: A general purpose CDDL-based parser is needed for this. This work is in the queue.
+
+SACM Architecture (Montville)
+https://tools.ietf.org/wg/sacm/draft-ietf-sacm-arch/
+(No updated draft - discuss next steps)
+Pending changes to the draft Adam/Bill working on now
+Draft clarifications
+Capability vs. Interface vs. Operation
+               -----------------------
+                        |
+                        v
+                    Interaction
+
+Sub-Architecture - Various collection systems; OVAL collection engine, EPCP implementations, YANG PUSH, etc
+Cooperative Tooling Architecture allows multiple approaches to work together (e.g., EPCP, OVAL)
+
+We will propose specific components and interactions for configuration management activities
+We will propose these things in the draft and move them out if/when necessary
+- If something crosses the line to solutions, we'll make the decision to move it out
+Henk: I am interested in helping with the operations in September.
+Arnaud: 3 points. 1) The diagram is not very friendly to those color blind (especially the right side). 2) Is there a formal language for capabilities/interfaces/operations? 3) There is maybe a link between this work and other endpooint work in the ITU, can ITU create a statement of interest to send to the IETF?.
+ROMAN: Yes.
+
+Describe the messaging infrastructure that allows transportation of a payload.
+Describe the instructions components can give to each other to operate on that payload
+- "Tell": Do a collection
+- "Ask": Watch this set of information for changes
+
+WGLC Feb 2020
+
+? - Information Model (Inacio)
+(No draft - discuss next steps)
+Chris posted a very rough -00 with only a handful of elements
+There's a composite type structure in there (Henk: Yes keep that)
+An "opaque" information field and a field of the opaque data type
+- If you can just have a blob of data, you dont have to standardize other elements
+- If the other party can understand the blob, then that's fine
+
+Actions: Some lists and enumerations - Will work with Bill/Adam to align with architecture
+Ira on Jabber: "Opaque" as a reference to the "x-name"(?)
+Dave Waltermire: This relates to the guidance in BCP178.
+Henk: This should be driven by running code. You should provide a category.
+Chris: I have "data use type".
+Chair: We can set the adoption milestone for this to September 2019.
+
+
+
+? - Terminology (Birkholz/Montville)
+https://tools.ietf.org/wg/sacm/draft-ietf-sacm-terminology/
+(No updated draft - discuss next steps)
+
+
+
+WG Status / Way Ahead - Chairs
+
+
+Roman: Milestone dates for those documents NOT in WGLC
+ROLIE SW Descriptor and CoSWID - Aug 2019 to IESG
+Architecture - Feb 2020 WGLC
+EPCP - October 2019 WGLC
+ROLIE Checklist Descriptor: WGLC March 2020
+YANG PUSH January 2020
+EPCP - Need to ask Jess about this one.
+Terminology - Architecture + 4 months (June 2020)
+
+VIRTUAL INTERIM
+Early Sept 9 or 16
+Early to Mid Oct 14
+
+AOB
+None.

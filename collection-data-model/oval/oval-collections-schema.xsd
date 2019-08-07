@@ -9,7 +9,7 @@
     <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
 
     <!-- =============================================================================== -->
-    <!-- ======================== Root OVAL objects Element ======================== -->
+    <!-- =============================================================================== -->
     <!-- =============================================================================== -->
     <xsd:element name="oval_objects">
         <xsd:annotation>
@@ -37,7 +37,12 @@
                 </xsd:element>
                 <xsd:element name="variables" type="oval:VariablesType" minOccurs="0" maxOccurs="1">
                     <xsd:annotation>
-                        <xsd:documentation>The optional variables section contains 1 or more variables.</xsd:documentation>
+                        <xsd:documentation>
+                            The optional variables section contains 1 or more variables.  Note that external variables 
+                            are not presently supported in collection-only instance documents.  When collection is 
+                            coupled to evaluation in oval_definitions documents, external_variable elements are allowed, 
+                            but not if only collection is specified.
+                        </xsd:documentation>
                     </xsd:annotation>
                 </xsd:element>
                 <xsd:element ref="ds:Signature" minOccurs="0" maxOccurs="1">
@@ -84,9 +89,8 @@
             <xsd:field xpath="@filter_ref"/>
         </xsd:keyref>
     </xsd:element>
-    
     <!-- =============================================================================== -->
-    <!-- ==================================  OBJECTS  ================================== -->
+    <!-- =================================== OBJECTS =================================== -->
     <!-- =============================================================================== -->
     <xsd:complexType name="ObjectsType">
         <xsd:annotation>
@@ -130,14 +134,31 @@
                     <xsd:element ref="oval-coll:set" minOccurs="1" maxOccurs="2"/>
                 </xsd:sequence>
                 <xsd:sequence>
-                    <xsd:element name="Object_reference" type="oval:ObjectIDPattern" minOccurs="1" maxOccurs="2"/>
-                    <xsd:element ref="oval-coll:filter" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="object_reference" type="oval:ObjectIDPattern" minOccurs="1" maxOccurs="2"/>
+                    <xsd:element ref="oval-coll:object_filter" minOccurs="0" maxOccurs="unbounded"/>
                 </xsd:sequence>
             </xsd:choice>
             <xsd:attribute name="set_operator" type="oval-coll:SetOperatorEnumeration" use="optional" default="UNION"/>
         </xsd:complexType>
     </xsd:element>
-
+    <xsd:element name="object_filter">
+        <xsd:annotation>
+            <xsd:documentation>
+                The filter element provides a reference to an existing OVAL Filter and includes an optional action attribute. 
+                The action attribute is used to specify whether items that match the referenced OVAL State will be included 
+                in the resulting set or excluded from the resulting set.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:attribute name="filter_ref" type="oval:FilterIDPattern" use="required"/>
+            <xsd:attribute name="action" type="oval-coll:FilterActionEnumeration" use="optional" default="exclude"/>
+            <!--<xsd:simpleContent>
+                <xsd:extension base="oval:FilterIDPattern">
+                    <xsd:attribute name="action" type="oval-coll:FilterActionEnumeration" use="optional" default="exclude"/>
+                </xsd:extension>
+            </xsd:simpleContent>-->
+        </xsd:complexType>
+    </xsd:element>
     <!-- =============================================================================== -->
     <!-- ==================================  FILTERS  ================================== -->
     <!-- =============================================================================== -->
@@ -149,7 +170,7 @@
                 more information about an individual filter.</xsd:documentation>
         </xsd:annotation>
         <xsd:sequence>
-            <xsd:element ref="oval-coll:filter" minOccurs="1" maxOccurs="unbounded"/>
+            <xsd:element ref="oval-coll:item_filter" minOccurs="1" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="FilterType">
@@ -163,16 +184,17 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="oval:FilterIDPattern" use="required"/>
         <xsd:attribute name="version" type="xsd:nonNegativeInteger" use="required"/>
+        <xsd:attribute name="operator" type="oval:OperatorEnumeration" use="optional" default="AND"/>
         <xsd:attribute name="comment" type="oval:NonEmptyStringType" use="optional"/>
         <xsd:attribute name="deprecated" type="xsd:boolean" use="optional" default="false"/>
-        <xsd:attribute name="action" type="oval-coll:FilterActionEnumeration" use="optional" default="exclude"/>
     </xsd:complexType>
-    <xsd:element name="filter" type="oval-coll:FilterType" abstract="true">
+    <xsd:element name="item_filter" type="oval-coll:FilterType" abstract="true">
         <xsd:annotation>
             <xsd:documentation>
                 The filter element provides a reference to an existing OVAL Filter and includes an optional action attribute. The action 
                 attribute is used to specify whether items that match the referenced OVAL State will be included in the resulting set or 
-                excluded from the resulting set.</xsd:documentation>
+                excluded from the resulting set.
+            </xsd:documentation>
         </xsd:annotation>
     </xsd:element>
     

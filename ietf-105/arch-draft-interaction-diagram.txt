@@ -1,0 +1,36 @@
++---------------------+
+|     Policy Feed     |
++---------+-----------+
+          |                                  5a.
+          |   +------------------------------------------------------------+
+      1.  |   |                                                            |
+          |   |                                                            |
+          |   |                  +----------------+                +-------v--------+
++---------v---+-------+     2.   |                |        5.      |                |   6.  +-------------------------------+
+|  Policy Repository  +---------->  Orchestrator  +---------------->    Evaluator   +-------> Evaluation Results Repository |
++---------------------+          |                |                |                |       +-------------------------------+
+                                 +-------+--------+                +-------^--------+
+                                         |                                 |
+                                         | 3.                              |
+                                         |                                 |
+                                         |                                 | 5b.
+                                +--------v----------+                      |
+                                | +---------------+ |                      |
+                                | |  Collector    | |                      |
+                                | +-------+-------+ |   4.  +--------------+---------------+
+                                |         |         +-------> Posture Attribute Repository |
+                                | +-------+-------+ |       +------------------------------+
+                                | | Target System | |
+                                | +---------------+ |
+                                +-------------------+
+                             Collection Sub-Architecture
+
+
+1. Policy is stored in the Policy Repository
+2. The Orchestrator obtains collection information from the Policy Repository
+3. The Orchestrator initiates collection to be performed by the Collection Sub-Architecture
+4. Collected posture attributes are stored n the Posture Attribute Repository
+5. The Orchestrator initiates the Evaluator (optionally with evaluation information gathered from the Policy Repository)
+  5a. The Evaluator obtains evaluation information from the Policy Repository (optionally)
+  5b. The Evaluator obtains relevant posture attributes from the Posture Attribute Repository
+6. Evaluation results are stored in the Evaluation Results Repository

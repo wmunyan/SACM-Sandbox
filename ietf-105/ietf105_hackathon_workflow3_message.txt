@@ -1,0 +1,27 @@
+ Workflow 3: Direct XMPP using Message stanzas
+
+            +------------------+
+            |   Orchestrator   |
+            +---------+--------+
+                      |
+IQ request containing |
+<oval_objects>        |
+                      | IQ response containing
+                      | <oval_system_characteristics>
+                      |
+                      |
+            +---------+--------+             +-------------------+
+            |     Collector    +------------->   XMPP Adapter    |
+            +------------------+             +---------+---------+
+                                                       |
+                    Collector sends <message>          |
+                    stanza containing system           |
+                    characteristics directly +---------v---------+ MAP Client translates
+                    to XMPP Adapter          |     MAP Client    | system characteristics XML
+                                             +---------+---------+ to CBOR and publishes to
+                                                       |           the MAP Server
+                                                       |
+                                                       |
+                                             +---------v---------+
+                                             |    MAP Server     |
+                                             +-------------------+

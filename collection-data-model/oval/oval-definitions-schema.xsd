@@ -421,6 +421,69 @@
         <xsd:attribute name="deprecated" type="xsd:boolean" use="optional" default="false"/>
     </xsd:complexType>
     <!-- =============================================================================== -->
+    <!-- =================================  VARIABLES  ================================= -->
+    <!-- =============================================================================== -->
+    <xsd:element name="external_variable" substitutionGroup="oval:variable">
+        <xsd:annotation>
+            <xsd:documentation>
+                The external_variable element extends the VariableType and defines a variable with 
+                some external source. The actual value(s) for the variable is not provided within the 
+                OVAL file, but rather it is retrieved during the evaluation of the OVAL Definition from 
+                an external source. An unbounded set of possible-value and possible_restriction child 
+                elements can be specified that together specify the list of all possible values that an 
+                external source is allowed to supply for the external variable. In other words, the value 
+                assigned by an external source must match one of the possible_value or possible_restriction 
+                elements specified. Each possible_value element contains a single value that could be assigned 
+                to the given external_variable while each possible_restriction element outlines a range of 
+                possible values. Note that it is not necessary to declare a variable's possible values, but 
+                the option is available if desired. If no possible child elements are specified, then the valid 
+                values are only bound to the specified datatype of the external variable. Please refer to the 
+                description of the PossibleValueType and PossibleRestrictionType complex types for more information.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="oval:VariableType">
+                    <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                        <xsd:element name="possible_value" type="oval-def:PossibleValueType"/>
+                        <xsd:element name="possible_restriction" type="oval-def:PossibleRestrictionType"/>
+                    </xsd:choice>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="PossibleValueType">
+        <xsd:annotation>
+            <xsd:documentation>The PossibleValueType complex type is used to outline a single expected value of an external variable. The required hint attribute gives a short description of what the value means or represents.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:anySimpleType">
+                <xsd:attribute name="hint" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType name="PossibleRestrictionType">
+        <xsd:annotation>
+            <xsd:documentation>The PossibleRestrictionType complex type outlines a range of possible expected value of an external variable. Each possible_restriction element contains an unbounded list of child restriction elements that each specify a range that an actual value may fall in. For example, a restriction element may specify that a value must be less than 10. When multiple restriction elements are present, a valid possible value's evaluation is based on the operator attribute. The operator attribute is set to AND by default. Other valid operation values are explained in the description of the OperatorEnumeration simple type. One can think of the possible_value and possible_restriction elements as an OR'd list of possible values, with the restriction elements as using the selected operation to evaluate its own list of value descriptions. Please refer to the description of the RestrictionType complex type for more information. The required hint attribute gives a short description of what the value means or represents.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:choice>
+            <xsd:element name="restriction" type="oval-def:RestrictionType" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:choice>
+        <xsd:attribute name="operator" type="oval:OperatorEnumeration" use="optional" default="AND"/>
+        <xsd:attribute name="hint" type="xsd:string" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="RestrictionType">
+        <xsd:annotation>
+            <xsd:documentation>The RestrictionType complex type outlines a restriction that is placed on expected values for an external variable. For example, a possible value may be restricted to a integer less than 10. Please refer to the operationEnumeration simple type for a description of the valid operations.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:anySimpleType">
+                <xsd:attribute name="operation" type="oval:OperationEnumeration" use="required"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    
+    <!-- =============================================================================== -->
     <!-- =================================  SIGNATURE  ================================= -->
     <!-- =============================================================================== -->
     <!--
